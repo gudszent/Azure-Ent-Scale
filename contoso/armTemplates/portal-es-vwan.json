@@ -606,6 +606,14 @@
                         "visible": true
                     },
                     {
+                        "name": "esAllowedSizeApi",
+                        "type": "Microsoft.Solutions.ArmApiControl",
+                        "request": {
+                            "method": "GET",
+                            "path": "[concat(subscription().id, '/providers/Microsoft.Compute/locations/northeurope/vmSizes?api-version=2020-06-01')]"
+                        }
+                    },
+                    {
                         "name": "esAllowedSize",
                         "type": "Microsoft.Common.OptionsGroup",
                         "label": "Restrict virtual machine size SKUs",
@@ -624,14 +632,6 @@
                             ]
                         },
                         "visible": true
-                    },
-                    {
-                        "name": "esAllowedSizeApi",
-                        "type": "Microsoft.Solutions.ArmApiControl",
-                        "request": {
-                            "method": "GET",
-                            "path": "[concat(subscription().id, '/providers/Microsoft.Compute/locations/northeurope/vmSizes?api-version=2020-06-01')]"
-                        }
                     },
                     {
                         "name": "esSize",
@@ -655,8 +655,8 @@
         "outputs": {
             "enableLogAnalytics": "[steps('esGoalState').esLogAnalytics]",
             "retentionInDays": "[string(steps('esGoalState').esLogRetention)]",
-            "managementSubscriptionId": "[steps('esGoalState').esMgmtSub]",            
-            "enableAgentHealth": "[steps('esGoalState').esAgentSolution]",            
+            "managementSubscriptionId": "[steps('esGoalState').esMgmtSub]",
+            "enableAgentHealth": "[steps('esGoalState').esAgentSolution]",
             "enableActivityLog": "[steps('esGoalState').esActivityLog]",
             "enableAsc": "[steps('esGoalState').esAsc]",
             "enableSecuritySolution": "[steps('esGoalState').esSecuritySolution]",
@@ -664,8 +664,8 @@
             "addressPrefixlz": "[steps('esConnectivityGoalState').esAddresslz]",
             "VPNClientPublicAddress": "[steps('esConnectivityGoalState').esVPNClientPublicAddress]",
             "VPNClientAddressspace": "[steps('esConnectivityGoalState').esVPNClientAddressspace]",
-            "VPNSharedKey": "[steps('esConnectivityGoalState').esVPNSharedKey]",                
-            "enableVpnGw": "[steps('esConnectivityGoalState').esVpnGw]",    
+            "VPNSharedKey": "[steps('esConnectivityGoalState').esVPNSharedKey]",
+            "enableVpnGw": "[steps('esConnectivityGoalState').esVpnGw]",
             "connectivitySubscriptionId": "[if(not(equals(steps('esConnectivityGoalState').esConnectivitySub, steps('esGoalState').esMgmtSub)), steps('esConnectivityGoalState').esConnectivitySub, '')]",
             "enableTaglz": "[steps('lzGoalState').esTaglz]",
             "enableCustomTag": "[steps('lzGoalState').esCustomTag]",
