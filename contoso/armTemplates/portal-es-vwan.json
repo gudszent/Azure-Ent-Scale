@@ -619,7 +619,7 @@
                         "label": "Allowed virtual machine size SKUs. List based on North Europe location.",
                         "toolTip": "",
                         "multiselect": true,
-                        "selectAll": true,
+                        "selectAll": false,
                         "filter": true,
                         "filterPlaceholder": "Filter items ...",
                         "multiLine": true,
