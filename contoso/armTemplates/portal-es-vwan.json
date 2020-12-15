@@ -606,6 +606,26 @@
                         "visible": true
                     },
                     {
+                        "name": "esAllowedSize",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Restrict virtual machine size SKUs",
+                        "defaultValue": "No",
+                        "toolTip": "",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "Yes",
+                                    "value": "Yes"
+                                },
+                                {
+                                    "label": "No",
+                                    "value": "No"
+                                }
+                            ]
+                        },
+                        "visible": true
+                    },
+                    {
                         "name": "esAllowedSizeApi",
                         "type": "Microsoft.Solutions.ArmApiControl",
                         "request": {
@@ -614,7 +634,7 @@
                         }
                     },
                     {
-                        "name": "esAllowedSize",
+                        "name": "esSize",
                         "type": "Microsoft.Common.DropDown",
                         "label": "Allowed virtual machine size SKUs. List based on North Europe location.",
                         "toolTip": "",
@@ -623,7 +643,7 @@
                         "filter": true,
                         "filterPlaceholder": "Filter items ...",
                         "multiLine": true,
-                        "visible": true,
+                        "visible": "[equals(steps('lzGoalState').esAllowedSize, 'Yes')]",
                         "constraints": {
                             "allowedValues": "[map(steps('lzGoalState').esAllowedSizeApi.value, (sub) => parse(concat('{\"label\":\"', sub.name, '\"}')))]",
                             "required": false
@@ -655,7 +675,7 @@
             "denySubnetWithoutNsg": "[steps('lzGoalState').esNsg]",
             "denyIpForwarding": "[steps('lzGoalState').esIpForwarding]",
             "GDPRAllowedEurope": "[steps('esGoalState').esGDPRAllowedEurope]",
-            "AllowedSize": "[steps('esGoalState').esAllowedSize]"
+            "AllowedSize": "[steps('esGoalState').esSize]"
         }
     }
 }
