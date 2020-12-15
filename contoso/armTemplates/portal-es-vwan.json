@@ -377,18 +377,24 @@
                             "required": true,
                             "validationMessage": "The virtual Connectivity network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
                         }
-                    },                 
+                    },
                     {
                         "name": "esVPNSharedKey",
                         "type": "Microsoft.Common.PasswordBox",
-                        "label": "VPN Shared Key",
+                        "label": {
+                          "password": "Shared Key",
+                          "confirmPassword": "Confirm Shared Key"
+                        },
                         "toolTip": "Provide Shared Key",
-                        "defaultValue": "",
-                        "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
                         "constraints": {
-                            "required": true,
-                            "validationMessage": "The virtual Connectivity network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
-                        }
+                          "required": true,
+                          "regex": "^[a-zA-Z0-9]{8,}$",
+                          "validationMessage": "Password must be at least 8 characters long, contain only numbers and letters"
+                        },
+                        "options": {
+                          "hideConfirmation": false
+                        },
+                        "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]"
                     }
                 ]
             },            
