@@ -592,7 +592,35 @@
                             ]
                         },
                         "visible": true
-                    }
+                    },
+                    {
+                        "name": "esGDPRAllowedEurope",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Data location only in Europe",
+                        "defaultValue": "Yes (recommended)",
+                        "toolTip": "If 'Yes' is selected, Azure Policy will allow only Europe as location",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "Yes (recommended)",
+                                    "value": "Yes"
+                                },
+                                {
+                                    "label": "No",
+                                    "value": "No"
+                                }
+                            ]
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "esAllowedComputerSize",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "Size",
+                        "toolTip": "",
+                        "count": 2,
+                        "visible": true
+                      }
                 ]
             }
         ],
