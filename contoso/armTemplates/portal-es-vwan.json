@@ -254,16 +254,16 @@
                         "visible": true,
                         "options": {
                             "icon": "Info",
-                            "text": "To enable Virtual WAN connectivity, you must allocate a connectivity Subscription. Please note, this Subscription will be moved to the connectivity Management Group, and ARM will deploy a Virtual WAN with the first Virtual Hub and requisite settings. We recommend using a new Subscription with no existing resources.",
+                            "text": "To enable VPN connectivity, you must allocate a connectivity Subscription. Please note, this Subscription will be moved to the connectivity Management Group, and ARM will deploy a Virtual VPN. We recommend using a new Subscription with no existing resources.",
                             "uri": "https://github.com/Azure/Enterprise-Scale/blob/main/docs/reference/Readme.md"
                         }
                     },
                     {
-                        "name": "esVPN",
+                        "name": "esConnectivity",
                         "type": "Microsoft.Common.OptionsGroup",
-                        "label": "Deploy Virtual VPN",
+                        "label": "Deploy Virtual Connectivity",
                         "defaultValue": "No",
-                        "toolTip": "If 'Yes' is selected when also adding a subscription for connectivity, ARM will deploy Virtual VPN",
+                        "toolTip": "If 'Yes' is selected when also adding a subscription for connectivity, ARM will deploy Virtual Connectivity",
                         "constraints": {
                             "allowedValues": [
                                 {
@@ -296,7 +296,7 @@
                         "filter": true,
                         "filterPlaceholder": "Filter items ...",
                         "multiLine": true,
-                        "visible": "[equals(steps('esConnectivityGoalState').esVPN, 'Yes')]",
+                        "visible": "[equals(steps('esConnectivityGoalState').esConnectivity, 'Yes')]",
                         "constraints": {
                             "allowedValues": "[map(steps('esConnectivityGoalState').nwSubsApi.value, (sub) => parse(concat('{\"label\":\"', sub.displayName, '\",\"description\":\"', sub.subscriptionId, '\",\"value\":\"', toLower(sub.subscriptionId), '\"}')) )]",
                             "required": true
@@ -308,7 +308,7 @@
                         "label": "Address space (required for Connectivity)",
                         "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.0.0/16)",
                         "defaultValue": "10.100.0.0/16",
-                        "visible": "[equals(steps('esConnectivityGoalState').esVPN, 'Yes')]",
+                        "visible": "[equals(steps('esConnectivityGoalState').esConnectivity, 'Yes')]",
                         "constraints": {
                             "required": true,
                             "validationMessage": "The virtual hubs network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
@@ -320,7 +320,7 @@
                         "label": "Address space (required for LandingZone)",
                         "toolTip": "Provide address prefix in CIDR notation (e.g 10.110.0.0/16)",
                         "defaultValue": "10.110.0.0/16",
-                        "visible": "[equals(steps('esConnectivityGoalState').esVPN, 'Yes')]",
+                        "visible": "[equals(steps('esConnectivityGoalState').esConnectivity, 'Yes')]",
                         "constraints": {
                             "required": true,
                             "validationMessage": "The LandingZone network's address space, specified as one address prefixes in CIDR notation (e.g. 10.110.0.0/16)"
@@ -333,17 +333,6 @@
                             "method": "GET",
                             "path": "locations?api-version=2019-11-01"
                         }
-                    },
-                    {
-                        "name": "esNwLocation",
-                        "type": "Microsoft.Common.DropDown",
-                        "label": "Region for the first virtual hub",
-                        "toolTip": "Select the target region for you connectivity deployment (requires you to provide a subscriptionId for connectivity)",
-                        "constraints": {
-                            "allowedValues": "[map(steps('esConnectivityGoalState').esLocationsApi.value, (item) => parse(concat('{\"label\":\"', item.displayName, '\",\"value\":\"', item.name, '\"}')))]",
-                            "required": true
-                        },
-                        "visible": "[equals(steps('esConnectivityGoalState').esVPN, 'Yes')]"
                     },
                     {
                         "name": "esVpnGw",
