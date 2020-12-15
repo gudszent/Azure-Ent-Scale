@@ -588,7 +588,7 @@
                     {
                         "name": "esGDPRAllowedEurope",
                         "type": "Microsoft.Common.OptionsGroup",
-                        "label": "Data location only in Europe",
+                        "label": "Data location only in Europe(GDPR)",
                         "defaultValue": "No",
                         "toolTip": "If 'Yes' is selected, Azure Policy will allow only Europe as location",
                         "constraints": {
