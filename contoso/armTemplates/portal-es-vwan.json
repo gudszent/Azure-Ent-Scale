@@ -311,7 +311,7 @@
                         "visible": "[equals(steps('esConnectivityGoalState').esConnectivity, 'Yes')]",
                         "constraints": {
                             "required": true,
-                            "validationMessage": "The virtual hubs network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
+                            "validationMessage": "The virtual Connectivity network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
                         }
                     },
                     {
@@ -352,6 +352,42 @@
                                     "value": "No"
                                 }
                             ]
+                        }
+                    },                    
+                    {
+                        "name": "esVPNClientPublicAddress",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "VPN Client Public IP Address",
+                        "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.0.0/16)",
+                        "defaultValue": "10.100.0.0/16",
+                        "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "The virtual Connectivity network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
+                        }
+                    },                    
+                    {
+                        "name": "esVPNClientAddressspace",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "VPN Client IP Address space",
+                        "toolTip": "Provide address prefix in CIDR notation (e.g 10.6.0.0/16)",
+                        "defaultValue": "10.6.0.0/16",
+                        "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "The virtual Connectivity network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
+                        }
+                    },                 
+                    {
+                        "name": "esVPNSharedKey",
+                        "type": "Microsoft.Common.PasswordBox",
+                        "label": "VPN Shared Key",
+                        "toolTip": "Provide Shared Key",
+                        "defaultValue": "",
+                        "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "The virtual Connectivity network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
                         }
                     }
                 ]
