@@ -339,7 +339,7 @@
                         "type": "Microsoft.Common.OptionsGroup",
                         "label": "Deploy VPN Gateway",
                         "defaultValue": "No",
-                        "visible": "[equals(steps('esConnectivityGoalState').esVPN, 'Yes')]",
+                        "visible": "[equals(steps('esConnectivityGoalState').esConnectivity, 'Yes')]",
                         "toolTip": "If 'Yes' is selected when also adding a subscription for connectivity, ARM will deploy VPN gateway",
                         "constraints": {
                             "allowedValues": [
@@ -394,7 +394,7 @@
                         "options": {
                           "hideConfirmation": false
                         },
-                        "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]"
+                        "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
                     }
                 ]
             },            
