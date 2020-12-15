@@ -394,7 +394,7 @@
                         "options": {
                           "hideConfirmation": false
                         },
-                        "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
+                        "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]"
                     }
                 ]
             },            
