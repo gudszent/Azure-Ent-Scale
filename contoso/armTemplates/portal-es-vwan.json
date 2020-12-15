@@ -104,7 +104,7 @@
                             "required": false
                         },
                         "visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
-                    },           
+                    },
                     {
                         "name": "mgmtSubsApi",
                         "type": "Microsoft.Solutions.ArmApiControl",
@@ -128,7 +128,7 @@
                             "allowedValues": "[map(steps('esGoalState').mgmtSubsApi.value, (sub) => parse(concat('{\"label\":\"', sub.displayName, '\",\"description\":\"', sub.subscriptionId, '\",\"value\":\"', toLower(sub.subscriptionId), '\"}')) )]",
                             "required": true
                         }
-                    },     			
+                    },
                     {
                         "name": "textBlock1",
                         "type": "Microsoft.Common.TextBlock",
@@ -159,7 +159,7 @@
                                 }
                             ]
                         },
-						"visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
+                        "visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
                     },
                     {
                         "name": "esActivityLog",
@@ -179,7 +179,7 @@
                                 }
                             ]
                         },
-						"visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
+                        "visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
                     },
                     {
                         "name": "textBlock0",
@@ -192,7 +192,7 @@
                                 "uri": "https://docs.microsoft.com/azure/security/fundamentals/overview"
                             }
                         }
-                    },					
+                    },
                     {
                         "name": "esAsc",
                         "type": "Microsoft.Common.OptionsGroup",
@@ -215,8 +215,8 @@
                                 }
                             ]
                         },
-						"visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
-                    },                 
+                        "visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
+                    },
                     {
                         "name": "esSecuritySolution",
                         "type": "Microsoft.Common.OptionsGroup",
@@ -235,8 +235,8 @@
                                 }
                             ]
                         },
-						"visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
-                    }					
+                        "visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
+                    }
                 ]
             },
             {
@@ -301,7 +301,7 @@
                             "allowedValues": "[map(steps('esConnectivityGoalState').nwSubsApi.value, (sub) => parse(concat('{\"label\":\"', sub.displayName, '\",\"description\":\"', sub.subscriptionId, '\",\"value\":\"', toLower(sub.subscriptionId), '\"}')) )]",
                             "required": true
                         }
-                    },                    
+                    },
                     {
                         "name": "esAddress",
                         "type": "Microsoft.Common.TextBox",
@@ -327,14 +327,6 @@
                         }
                     },
                     {
-                        "name": "esLocationsApi",
-                        "type": "Microsoft.Solutions.ArmApiControl",
-                        "request": {
-                            "method": "GET",
-                            "path": "locations?api-version=2019-11-01"
-                        }
-                    },
-                    {
                         "name": "esVpnGw",
                         "type": "Microsoft.Common.OptionsGroup",
                         "label": "Deploy VPN Gateway",
@@ -353,19 +345,19 @@
                                 }
                             ]
                         }
-                    },                    
+                    },
                     {
                         "name": "esVPNClientPublicAddress",
                         "type": "Microsoft.Common.TextBox",
                         "label": "VPN Client Public IP Address",
-                        "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.0.0/16)",
-                        "defaultValue": "10.100.0.0/16",
+                        "toolTip": "Provide your public IP",
+                        "defaultValue": "",
                         "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
                         "constraints": {
                             "required": true,
                             "validationMessage": "The virtual Connectivity network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
                         }
-                    },                    
+                    },
                     {
                         "name": "esVPNClientAddressspace",
                         "type": "Microsoft.Common.TextBox",
@@ -382,22 +374,22 @@
                         "name": "esVPNSharedKey",
                         "type": "Microsoft.Common.PasswordBox",
                         "label": {
-                          "password": "Shared Key",
-                          "confirmPassword": "Confirm Shared Key"
+                            "password": "Shared Key",
+                            "confirmPassword": "Confirm Shared Key"
                         },
                         "toolTip": "Provide Shared Key",
                         "constraints": {
-                          "required": true,
-                          "regex": "^[a-zA-Z0-9]{8,}$",
-                          "validationMessage": "Password must be at least 8 characters long, contain only numbers and letters"
+                            "required": true,
+                            "regex": "^[a-zA-Z0-9]{8,}$",
+                            "validationMessage": "Password must be at least 8 characters long, contain only numbers and letters"
                         },
                         "options": {
-                          "hideConfirmation": false
+                            "hideConfirmation": false
                         },
                         "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]"
                     }
                 ]
-            },            
+            },
             {
                 "name": "lzGoalState",
                 "label": "Landing zone configuration",
@@ -511,7 +503,7 @@
                                 }
                             ]
                         },
-						"visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
+                        "visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
                     },
                     {
                         "name": "esVmssMonitoring",
@@ -531,7 +523,7 @@
                                 }
                             ]
                         },
-						"visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
+                        "visible": "[equals(steps('esGoalState').esLogAnalytics, 'Yes')]"
                     },
                     {
                         "name": "esAzBackup",
@@ -597,12 +589,12 @@
                         "name": "esGDPRAllowedEurope",
                         "type": "Microsoft.Common.OptionsGroup",
                         "label": "Data location only in Europe",
-                        "defaultValue": "Yes (recommended)",
+                        "defaultValue": "No",
                         "toolTip": "If 'Yes' is selected, Azure Policy will allow only Europe as location",
                         "constraints": {
                             "allowedValues": [
                                 {
-                                    "label": "Yes (recommended)",
+                                    "label": "Yes",
                                     "value": "Yes"
                                 },
                                 {
@@ -614,47 +606,56 @@
                         "visible": true
                     },
                     {
-                        "name": "esAllowedComputerSize",
-                        "type": "Microsoft.Compute.SizeSelector",
-                        "label": "Size",
+                        "name": "esAllowedSizeApi",
+                        "type": "Microsoft.Solutions.ArmApiControl",
+                        "request": {
+                            "method": "GET",
+                            "path": "[concat(subscription().id, '/providers/Microsoft.Compute/locations/northeurope/vmSizes?api-version=2020-06-01')]"
+                        }
+                    },
+                    {
+                        "name": "esAllowedSize",
+                        "type": "Microsoft.Common.DropDown",
+                        "label": "Allowed virtual machine size SKUs. List based on North Europe location.",
                         "toolTip": "",
-                        "count": 2,
-                        "visible": true
-                      }
+                        "multiselect": true,
+                        "selectAll": true,
+                        "filter": true,
+                        "filterPlaceholder": "Filter items ...",
+                        "multiLine": true,
+                        "visible": true,
+                        "constraints": {
+                            "allowedValues": "[map(steps('lzGoalState').esAllowedSizeApi.value, (sub) => parse(concat('{\"label\":\"', sub.name, '\"}')))]",
+                            "required": false
+                        }
+                    }
                 ]
             }
         ],
         "outputs": {
-            "enableVpnGw": "[steps('esConnectivityGoalState').esVpnGw]",
-            "connectivitySubscriptionId": "[if(not(equals(steps('esConnectivityGoalState').esConnectivitySub, steps('esGoalState').esMgmtSub)), steps('esConnectivityGoalState').esConnectivitySub, '')]",
-            "addressPrefix": "[steps('esConnectivityGoalState').esAddress]",
-            "addressPrefixlz": "[steps('esConnectivityGoalState').esAddresslz]",
-            "location": "[steps('esConnectivityGoalState').esNwLocation]",
-            "managementSubscriptionId": "[steps('esGoalState').esMgmtSub]",
-            "lzSubscriptionId": "[if(or(not(equals(steps('lzGoalState').esLzSub, steps('esGoalState').esMgmtSub)), not(equals(steps('lzGoalState').esLzSub, steps('esConnectivityGoalState').esConnectivitySub))), steps('lzGoalState').esLzSub, '')]",
             "enableLogAnalytics": "[steps('esGoalState').esLogAnalytics]",
+            "retentionInDays": "[string(steps('esGoalState').esLogRetention)]",
+            "managementSubscriptionId": "[steps('esGoalState').esMgmtSub]",            
+            "enableAgentHealth": "[steps('esGoalState').esAgentSolution]",            
+            "enableActivityLog": "[steps('esGoalState').esActivityLog]",
             "enableAsc": "[steps('esGoalState').esAsc]",
             "enableSecuritySolution": "[steps('esGoalState').esSecuritySolution]",
-            "enableAgentHealth": "[steps('esGoalState').esAgentSolution]",
-            "enableChangeTracking": "[steps('esGoalState').esChangeTracking]",
-            "enableUpdateMgmt": "[steps('esGoalState').esUpdateMgmt]",
-            "enableActivityLog": "[steps('esGoalState').esActivityLog]",
-            "enableVmInsights": "[steps('esGoalState').esVmInsights]",
-            "enableAntiMalware": "[steps('esGoalState').esAntiMalware]",
-            "enableServiceMap": "[steps('esGoalState').esServiceMap]",
-            "enableSqlAssessment": "[steps('esGoalState').esSqlAssessment]",
-            "enterpriseScaleCompanyPrefix": "[steps('lzSettings').esMgmtGroup]",
-            "enableSqlAudit": "[steps('lzGoalState').esSqlAudit]",
-            "enableSqlEncryption": "[steps('lzGoalState').esSqlEncryption]",
-            "enableVmBackup": "[steps('lzGoalState').esAzBackup]",
-            "denyRdp": "[steps('lzGoalState').esDenyRdp]",
-            "enableStorageHttps": "[steps('lzGoalState').esHttpsStorage]",
-            "denyIpForwarding": "[steps('lzGoalState').esIpForwarding]",
-            "denySubnetWithoutNsg": "[steps('lzGoalState').esNsg]",
-            "retentionInDays": "[string(steps('esGoalState').esLogRetention)]",
-            "enableVmMonitoring": "[steps('lzGoalState').esVmMonitoring]",
+            "addressPrefix": "[steps('esConnectivityGoalState').esAddress]",
+            "addressPrefixlz": "[steps('esConnectivityGoalState').esAddresslz]",
+            "VPNClientPublicAddress": "[steps('esConnectivityGoalState').esVPNClientPublicAddress]",
+            "VPNClientAddressspace": "[steps('esConnectivityGoalState').esVPNClientAddressspace]",
+            "VPNSharedKey": "[steps('esConnectivityGoalState').esVPNSharedKey]",                
+            "enableVpnGw": "[steps('esConnectivityGoalState').esVpnGw]",    
+            "connectivitySubscriptionId": "[if(not(equals(steps('esConnectivityGoalState').esConnectivitySub, steps('esGoalState').esMgmtSub)), steps('esConnectivityGoalState').esConnectivitySub, '')]",
+            "enableTaglz": "[steps('lzGoalState').esTaglz]",
+            "enableCustomTag": "[steps('lzGoalState').esCustomTag]",
             "enableVmssMonitoring": "[steps('lzGoalState').esVmssMonitoring]",
-            "enableArcMonitoring": "[steps('lzGoalState').esArcVmMonitoring]"
+            "enableVmMonitoring": "[steps('lzGoalState').esVmMonitoring]",
+            "enableVmBackup": "[steps('lzGoalState').esAzBackup]",
+            "denySubnetWithoutNsg": "[steps('lzGoalState').esNsg]",
+            "denyIpForwarding": "[steps('lzGoalState').esIpForwarding]",
+            "GDPRAllowedEurope": "[steps('esGoalState').esGDPRAllowedEurope]",
+            "AllowedSize": "[steps('esGoalState').esAllowedSize]"
         }
     }
 }
