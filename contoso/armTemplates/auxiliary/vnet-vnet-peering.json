@@ -1,0 +1,333 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "metadata": {
+                "description": "Location of the resources"
+            },
+            "defaultValue": "North Europe"
+        },
+        "vNet1Name": {
+            "type": "string",
+            "defaultValue": "vNet1",
+            "metadata": {
+                "description": "Name for vNet 1"
+            }
+        },
+        "vNet2Name": {
+            "type": "string",
+            "defaultValue": "vNet2",
+            "metadata": {
+                "description": "Name for vNet 2"
+            }
+        },
+        "vNet1Address": {
+            "type": "string",
+            "defaultValue": "10.100.0.0/16",
+            "metadata": {
+                "description": ""
+            }
+        },
+        "vNet2Address": {
+            "type": "string",
+            "defaultValue": "10.101.0.0/16",
+            "metadata": {
+                "description": ""
+            }
+        },
+        "ConnectivitySub": {
+            "type": "string",
+            "defaultValue": "fbb1cfe3-d4c1-48a2-8c7c-a9355fe0e9ee",
+            "metadata": {
+                "description": ""
+            }
+        },
+        "LandzoneSub": {
+            "type": "string",
+            "defaultValue": "5871a190-7249-4b64-89cb-16717fbdc911",
+            "metadata": {
+                "description": ""
+            }
+        },
+        "topLevelManagementGroupPrefix": {
+            "type": "string",
+            "defaultValue": "test",
+            "metadata": {
+                "description": ""
+            }
+        }
+    },
+    "variables": {
+        "vNet1": {
+            "addressSpacePrefix": "[parameters('vNet1Address')]",
+            "subnetName": "subnet1",
+            "subnetPrefix": "[parameters('vNet1Address')]"
+        },
+        "vNet2": {
+            "addressSpacePrefix": "[parameters('vNet2Address')]",
+            "subnetName": "subnet1",
+            "subnetPrefix": "[parameters('vNet2Address')]"
+        },
+        "rgNameconnectivity": "[concat(parameters('topLevelManagementGroupPrefix'), '-connectivity')]",
+        "rgNamelandzone": "[concat(parameters('topLevelManagementGroupPrefix'), '-landzone')]",
+        "resourceDeploymentName": "[take(concat(deployment().name, '-connectivity'), 64)]",
+        "vNet1tovNet2PeeringName": "[concat(parameters('vNet1Name'), '-', parameters('vNet2Name'))]",
+        "vNet2tovNet1PeeringName": "[concat(parameters('vNet2Name'), '-', parameters('vNet1Name'))]",
+        "vNet1tovNet2Peeringid": "[concat('/subscriptions/',parameters('LandzoneSub'),'/resourceGroups/',variables('rgNamelandzone'),'/providers/Microsoft.Network/virtualNetworks/',parameters('vNet2Name'))]",
+        "vNet2tovNet1Peeringid": "[concat('/subscriptions/',parameters('ConnectivitySub'),'/resourceGroups/',variables('rgNameconnectivity'),'/providers/Microsoft.Network/virtualNetworks/',parameters('vNet1Name'))]"
+
+
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "location": "[parameters('location')]",
+            "name": "[concat('EntScale', '-connectivitySub')]",
+            "subscriptionId": "[parameters('ConnectivitySub')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Resources/resourceGroups",
+                            "apiVersion": "2019-10-01",
+                            "name": "[variables('rgNameconnectivity')]",
+                            "location": "[deployment().location]",
+                            "properties": {}
+                        },
+                        {
+                            "type": "Microsoft.Resources/deployments",
+                            "apiVersion": "2019-10-01",
+                            "name": "[variables('resourceDeploymentName')]",
+                            "resourceGroup": "[variables('rgNameconnectivity')]",
+                            "dependsOn": [
+                                "[concat('Microsoft.Resources/resourceGroups/', variables('rgNameconnectivity'))]"
+                            ],
+                            "properties": {
+                                "mode": "Incremental",
+                                "template": {
+                                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                                    "contentVersion": "1.0.0.0",
+                                    "parameters": {},
+                                    "resources": [
+                                        {
+                                            "type": "Microsoft.Network/virtualNetworks",
+                                            "apiVersion": "2020-05-01",
+                                            "name": "[parameters('vNet1Name')]",
+                                            "location": "[parameters('location')]",
+                                            "comments": "This is the first vNet",
+                                            "properties": {
+                                                "addressSpace": {
+                                                    "addressPrefixes": [
+                                                        "[variables('vNet1').addressSpacePrefix]"
+                                                    ]
+                                                },
+                                                "subnets": [
+                                                    {
+                                                        "name": "[variables('vNet1').subnetName]",
+                                                        "properties": {
+                                                            "addressPrefix": "[variables('vNet1').subnetPrefix]"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "location": "[parameters('location')]",
+            "name": "[concat('EntScale', '-landzoneSub')]",
+            "subscriptionId": "[parameters('LandzoneSub')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Resources/resourceGroups",
+                            "apiVersion": "2019-10-01",
+                            "name": "[variables('rgNamelandzone')]",
+                            "location": "[deployment().location]",
+                            "properties": {}
+                        },
+                        {
+                            "type": "Microsoft.Resources/deployments",
+                            "apiVersion": "2019-10-01",
+                            "name": "[variables('resourceDeploymentName')]",
+                            "resourceGroup": "[variables('rgNamelandzone')]",
+                            "dependsOn": [
+                                "[concat('Microsoft.Resources/resourceGroups/', variables('rgNamelandzone'))]"
+                            ],
+                            "properties": {
+                                "mode": "Incremental",
+                                "template": {
+                                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                                    "contentVersion": "1.0.0.0",
+                                    "parameters": {},
+                                    "resources": [
+                                        {
+                                            "type": "Microsoft.Network/virtualNetworks",
+                                            "apiVersion": "2020-05-01",
+                                            "name": "[parameters('vNet2Name')]",
+                                            "location": "[parameters('location')]",
+                                            "comments": "This is the second vNet",
+                                            "properties": {
+                                                "addressSpace": {
+                                                    "addressPrefixes": [
+                                                        "[variables('vNet2').addressSpacePrefix]"
+                                                    ]
+                                                },
+                                                "subnets": [
+                                                    {
+                                                        "name": "[variables('vNet2').subnetName]",
+                                                        "properties": {
+                                                            "addressPrefix": "[variables('vNet2').subnetPrefix]"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+
+
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "createPeeringAtoB",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deployments/', 'EntScale', '-connectivitySub')]",
+                "[concat('Microsoft.Resources/deployments/', 'EntScale', '-landzoneSub')]"
+            ],
+            "subscriptionId": "[parameters('ConnectivitySub')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Resources/deployments",
+                            "apiVersion": "2019-10-01",
+                            "name": "[concat(variables('vNet1tovNet2PeeringName'),'-Deploy')]",
+                            "resourceGroup": "[variables('rgNameconnectivity')]",
+                            "properties": {
+                                "mode": "Incremental",
+                                "template": {
+                                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                                    "contentVersion": "1.0.0.0",
+                                    "resources": [
+                                        {
+                                            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+                                            "apiVersion": "2020-05-01",
+                                            "name": "[concat(parameters('vNet1Name'),'/',parameters('vNet2Name'))]",
+                                            "properties": {
+                                                "peeringState": "Connected",
+                                                "remoteVirtualNetwork": {
+                                                    "id": "[variables('vNet1tovNet2Peeringid')]"
+                                                },
+                                                "allowVirtualNetworkAccess": true,
+                                                "allowForwardedTraffic": true,
+                                                "allowGatewayTransit": false,
+                                                "useRemoteGateways": false,
+                                                "remoteAddressSpace": {
+                                                    "addressPrefixes": [
+                                                        "[variables('vNet2').subnetPrefix]"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+
+        },
+        {
+            "name": "createPeeringBtoA",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deployments/', 'EntScale', '-connectivitySub')]",
+                "[concat('Microsoft.Resources/deployments/', 'EntScale', '-landzoneSub')]"
+            ],
+            "subscriptionId": "[parameters('LandzoneSub')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Resources/deployments",
+                            "apiVersion": "2019-10-01",
+                            "name": "[concat(variables('vNet2tovNet1PeeringName'),'-Deploy')]",
+                            "resourceGroup": "[variables('rgNamelandzone')]",
+                            "properties": {
+                                "mode": "Incremental",
+                                "template": {
+                                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                                    "contentVersion": "1.0.0.0",
+                                    "resources": [
+                                        {
+                                            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+                                            "apiVersion": "2020-05-01",
+                                            "name": "[concat(parameters('vNet2Name'),'/',parameters('vNet1Name'))]",
+                                            "properties": {
+                                                "peeringState": "Connected",
+                                                "remoteVirtualNetwork": {
+                                                    "id": "[variables('vNet2tovNet1Peeringid')]"
+                                                },
+                                                "allowVirtualNetworkAccess": true,
+                                                "allowForwardedTraffic": true,
+                                                "allowGatewayTransit": false,
+                                                "useRemoteGateways": false,
+                                                "remoteAddressSpace": {
+                                                    "addressPrefixes": [
+                                                        "[variables('vNet1').subnetPrefix]"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+
+        }
+    ]
+}
