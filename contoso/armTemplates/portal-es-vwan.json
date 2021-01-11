@@ -296,7 +296,7 @@
                                 }
                             ]
                         },
-                        "visible": true
+                        "visible": "[equals(steps('esConnectivityGoalState').esConnectivity, 'Yes')]"
                     },
                     {
                         "name": "nwSubsApi",
