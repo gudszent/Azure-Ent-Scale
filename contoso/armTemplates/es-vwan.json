@@ -47,7 +47,7 @@
         "retentionInDays": {
             "type": "string",
             "defaultValue": ""
-        },        
+        },
         "enableAsc": {
             "type": "string",
             "defaultValue": "No",
@@ -81,7 +81,7 @@
             "metadata": {
                 "description": "If 'Yes' is selected, policy will be assigned to enforce VMSS monitoring."
             }
-        }, 
+        },
         "enableSecuritySolution": {
             "type": "string",
             "defaultValue": "No",
@@ -105,7 +105,7 @@
                 "No"
             ],
             "defaultValue": "Yes"
-        },           
+        },
         "enableVmBackup": {
             "type": "string",
             "defaultValue": "No",
@@ -145,6 +145,23 @@
                 "Yes",
                 "No"
             ]
+        },
+        "GDPRAllowedEurope": {
+            "type": "string",
+            "defaultValue": "No",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "isAllowedSize": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "AllowedSize": {
+            "type": "string",
+            "defaultValue": ""
+            
         },
         "location": {
             "type": "string",
