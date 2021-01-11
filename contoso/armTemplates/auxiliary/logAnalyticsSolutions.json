@@ -32,55 +32,7 @@
             ],
             "defaultValue": "Yes"
         },
-        "enableChangeTracking": {
-            "type": "string",
-            "allowedValues": [
-                "Yes",
-                "No"
-            ],
-            "defaultValue": "Yes"
-        },
-        "enableUpdateMgmt": {
-            "type": "string",
-            "allowedValues": [
-                "Yes",
-                "No"
-            ],
-            "defaultValue": "Yes"
-        },
         "enableActivityLog": {
-            "type": "string",
-            "allowedValues": [
-                "Yes",
-                "No"
-            ],
-            "defaultValue": "Yes"
-        },
-        "enableAntiMalware": {
-            "type": "string",
-            "allowedValues": [
-                "Yes",
-                "No"
-            ],
-            "defaultValue": "Yes"
-        },
-        "enableVmInsights": {
-            "type": "string",
-            "allowedValues": [
-                "Yes",
-                "No"
-            ],
-            "defaultValue": "Yes"
-        },
-        "enableServiceMap": {
-            "type": "string",
-            "allowedValues": [
-                "Yes",
-                "No"
-            ],
-            "defaultValue": "Yes"
-        },
-        "enableSqlAssessment": {
             "type": "string",
             "allowedValues": [
                 "Yes",
@@ -164,22 +116,7 @@
                                 "publisher": "Microsoft"
                             }
                         },
-                        {
-                            "condition": "[equals(parameters('enableAntiMalware'), 'Yes')]",
-                            "apiVersion": "2015-11-01-preview",
-                            "type": "Microsoft.OperationsManagement/solutions",
-                            "name": "[variables('solutions').antiMalware.name]",
-                            "location": "[parameters('workspaceRegion')]",
-                            "properties": {
-                                "workspaceResourceId": "[variables('laResourceId')]"
-                            },
-                            "plan": {
-                                "name": "[variables('solutions').antiMalware.name]",
-                                "product": "[concat('OMSGallery/', variables('solutions').antiMalware.marketplaceName)]",
-                                "promotionCode": "",
-                                "publisher": "Microsoft"
-                            }
-                        },
+
                         {
                             "condition": "[equals(parameters('enableActivityLog'), 'Yes')]",
                             "apiVersion": "2015-11-01-preview",
@@ -196,38 +133,7 @@
                                 "publisher": "Microsoft"
                             }
                         },
-                        {
-                            "condition": "[equals(parameters('enableChangeTracking'), 'Yes')]",
-                            "apiVersion": "2015-11-01-preview",
-                            "type": "Microsoft.OperationsManagement/solutions",
-                            "name": "[variables('solutions').changeTracking.name]",
-                            "location": "[parameters('workspaceRegion')]",
-                            "properties": {
-                                "workspaceResourceId": "[variables('laResourceId')]"
-                            },
-                            "plan": {
-                                "name": "[variables('solutions').changeTracking.name]",
-                                "product": "[concat('OMSGallery/', variables('solutions').changeTracking.marketplaceName)]",
-                                "promotionCode": "",
-                                "publisher": "Microsoft"
-                            }
-                        },
-                        {
-                            "condition": "[equals(parameters('enableVmInsights'), 'Yes')]",
-                            "apiVersion": "2015-11-01-preview",
-                            "type": "Microsoft.OperationsManagement/solutions",
-                            "name": "[variables('solutions').vmInsights.name]",
-                            "location": "[parameters('workspaceRegion')]",
-                            "properties": {
-                                "workspaceResourceId": "[variables('laResourceId')]"
-                            },
-                            "plan": {
-                                "name": "[variables('solutions').vmInsights.name]",
-                                "product": "[concat('OMSGallery/', variables('solutions').vmInsights.marketplaceName)]",
-                                "promotionCode": "",
-                                "publisher": "Microsoft"
-                            }
-                        },
+
                         {
                             "condition": "[equals(parameters('enableSecuritySolution'), 'Yes')]",
                             "apiVersion": "2015-11-01-preview",
@@ -259,55 +165,8 @@
                                 "promotionCode": "",
                                 "publisher": "Microsoft"
                             }
-                        },
-                        {
-                            "condition": "[equals(parameters('enableServiceMap'), 'Yes')]",
-                            "apiVersion": "2015-11-01-preview",
-                            "type": "Microsoft.OperationsManagement/solutions",
-                            "name": "[variables('solutions').serviceMap.name]",
-                            "location": "[parameters('workspaceRegion')]",
-                            "properties": {
-                                "workspaceResourceId": "[variables('laResourceId')]"
-                            },
-                            "plan": {
-                                "name": "[variables('solutions').serviceMap.name]",
-                                "product": "[concat('OMSGallery/', variables('solutions').serviceMap.marketplaceName)]",
-                                "promotionCode": "",
-                                "publisher": "Microsoft"
-                            }
-                        },
-                        {
-                            "condition": "[equals(parameters('enableSqlAssessment'), 'Yes')]",
-                            "apiVersion": "2015-11-01-preview",
-                            "type": "Microsoft.OperationsManagement/solutions",
-                            "name": "[variables('solutions').sqlAssessment.name]",
-                            "location": "[parameters('workspaceRegion')]",
-                            "properties": {
-                                "workspaceResourceId": "[variables('laResourceId')]"
-                            },
-                            "plan": {
-                                "name": "[variables('solutions').sqlAssessment.name]",
-                                "product": "[concat('OMSGallery/', variables('solutions').sqlAssessment.marketplaceName)]",
-                                "promotionCode": "",
-                                "publisher": "Microsoft"
-                            }
-                        },
-                        {
-                            "condition": "[equals(parameters('enableUpdateMgmt'), 'Yes')]",
-                            "apiVersion": "2015-11-01-preview",
-                            "type": "Microsoft.OperationsManagement/solutions",
-                            "name": "[variables('solutions').updateMgmt.name]",
-                            "location": "[parameters('workspaceRegion')]",
-                            "properties": {
-                                "workspaceResourceId": "[variables('laResourceId')]"
-                            },
-                            "plan": {
-                                "name": "[variables('solutions').updateMgmt.name]",
-                                "product": "[concat('OMSGallery/', variables('solutions').updateMgmt.marketplaceName)]",
-                                "promotionCode": "",
-                                "publisher": "Microsoft"
-                            }
-                        }                                                       
+                        }
+                                                     
                     ]
                 }
             }
