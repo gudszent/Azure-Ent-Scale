@@ -235,8 +235,8 @@
             "connectivityDeploymentName": "[take(concat('EntScale-conn', '-', deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]",
             "lzDeploymentName": "[take(concat('EntScale-LZ', '-', deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
         },
-        "connectivityvnet1name": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-vnet1')]",
-        "connectivityvnet2name": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-vnet2')]"
+        "connectivityvnet1name": "VNet1",
+        "connectivityvnet2name": "VNet2"
 
     },
     "resources": [

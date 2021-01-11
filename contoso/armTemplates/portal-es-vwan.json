@@ -676,6 +676,7 @@
             "enableLogAnalytics": "[steps('esGoalState').esLogAnalytics]",
             "retentionInDays": "[string(steps('esGoalState').esLogRetention)]",
             "managementSubscriptionId": "[steps('esGoalState').esMgmtSub]",
+            "lzSubscriptionId": "[steps('lzGoalState').esLzSub]",
             "enableAgentHealth": "[steps('esGoalState').esAgentSolution]",
             "enableActivityLog": "[steps('esGoalState').esActivityLog]",
             "enableAsc": "[steps('esGoalState').esAsc]",
