@@ -154,6 +154,26 @@
                 "No"
             ]
         },
+        "enableVpnGw": {
+            "type": "string",
+            "defaultValue": "No",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "enableTaglz": {
+            "type": "string",
+            "defaultValue": "No",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ]
+        },
+        "enableCustomTag": {
+            "type": "string",
+            "defaultValue": ""
+        },
         "isAllowedSize": {
             "type": "string",
             "defaultValue": ""
@@ -161,7 +181,22 @@
         "AllowedSize": {
             "type": "string",
             "defaultValue": ""
-            
+
+        },
+        "VPNClientPublicAddress": {
+            "type": "string",
+            "defaultValue": ""
+
+        },
+        "VPNClientAddressspace": {
+            "type": "string",
+            "defaultValue": ""
+
+        },
+        "VPNSharedKey": {
+            "type": "string",
+            "defaultValue": ""
+
         },
         "location": {
             "type": "string",
