@@ -482,6 +482,51 @@
                 "DeploymentDelay"
             ],
             "properties": {}
+        },
+        {
+            "condition": "[and(not(empty(parameters('connectivitySubscriptionId'))),equals(parameters('esConnectivitypeeringlz'), 'Yes'))]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-05-01",
+            "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'), '-connectivity')]",
+            "name": "[variables('deploymentNames').connectivityDeploymentName]",
+            "dependsOn": [
+                "[variables('deploymentNames').diagAndSecDeploymentName]",
+                "DeploymentDelay"
+            ],
+            "location": "[deployment().location]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "contentVersion": "1.0.0.0",
+                    "uri": "[variables('deploymentUris').connectivity]"
+                },
+                "parameters": {
+                    "topLevelManagementGroupPrefix": {
+                        "value": "[parameters('enterpriseScaleCompanyPrefix')]"
+                    },
+                    "vNet1Name": {
+                        "value": "[variables('connectivityvnet1name')]"
+                    },
+                    "vNet2Name": {
+                        "value": "[variables('connectivityvnet2name')]"
+                    },
+                    "vNet1Address": {
+                        "value": "[parameters('addressPrefix')]"
+                    },
+                    "vNet2Address": {
+                        "value": "[parameters('addressPrefixlz')]"
+                    },
+                    "ConnectivitySub": {
+                        "value": "[parameters('connectivitySubscriptionId')]"
+                    },
+                    "LandzoneSub": {
+                        "value": "[parameters('lzSubscriptionId')]"
+                    },
+                    "location": {
+                        "value": "[parameters('location')]"
+                    }
+                }
+            }
         }
     ],
     "outputs": {
