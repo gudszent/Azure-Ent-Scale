@@ -279,6 +279,26 @@
                         "visible": true
                     },
                     {
+                        "name": "esConnectivitypeeringlz",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Deploy Peering to Landingzone",
+                        "defaultValue": "No",
+                        "toolTip": "If 'Yes' is selected will create peering nemwork with landingzone",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "Yes (recommended)",
+                                    "value": "Yes"
+                                },
+                                {
+                                    "label": "No",
+                                    "value": "No"
+                                }
+                            ]
+                        },
+                        "visible": true
+                    },
+                    {
                         "name": "nwSubsApi",
                         "type": "Microsoft.Solutions.ArmApiControl",
                         "request": {
@@ -661,6 +681,7 @@
             "enableAsc": "[steps('esGoalState').esAsc]",
             "enableSecuritySolution": "[steps('esGoalState').esSecuritySolution]",
             "addressPrefix": "[steps('esConnectivityGoalState').esAddress]",
+            "esConnectivitypeeringlz": "[steps('esConnectivityGoalState').esConnectivitypeeringlz]",
             "addressPrefixlz": "[steps('esConnectivityGoalState').esAddresslz]",
             "VPNClientPublicAddress": "[steps('esConnectivityGoalState').esVPNClientPublicAddress]",
             "VPNClientAddressspace": "[steps('esConnectivityGoalState').esVPNClientAddressspace]",
