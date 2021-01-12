@@ -218,6 +218,7 @@
             "monitoringSolutions": "[uri(deployment().properties.templateLink.uri, 'auxiliary/logAnalyticsSolutions.json')]",
             "connectivity": "[uri(deployment().properties.templateLink.uri, 'auxiliary/vnet-vnet-peering.json')]",
             "diagnosticsAndSecurity": "[uri(deployment().properties.templateLink.uri, 'auxiliary/diagnosticsAndSecurity.json')]",
+            "connectivityVPN": "[uri(deployment().properties.templateLink.uri, 'auxiliary/site-to-site-vpn.json')]",
             "landingZone": "[uri(deployment().properties.templateLink.uri, 'auxiliary/lz.json')]"
         },
         "moveSubscription": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-management', '/', parameters('managementSubscriptionId'))]",
@@ -233,10 +234,15 @@
             "monitoringSolutionsDeploymentName": "[take(concat('EntScale-Solutions', '-', deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]",
             "diagAndSecDeploymentName": "[take(concat('EntScale-DiagSec', '-', deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]",
             "connectivityDeploymentName": "[take(concat('EntScale-conn', '-', deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]",
+            "connectivityVPNDeploymentName": "[take(concat('EntScale-conn', '-VPN-', deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]",
             "lzDeploymentName": "[take(concat('EntScale-LZ', '-', deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
         },
         "connectivityvnet1name": "VNet1",
-        "connectivityvnet2name": "VNet2"
+        "connectivityvnet2name": "VNet2",
+        "localGatewayName":"[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '/', 'L-GW')]",
+        "gatewayPublicIPName":"[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '/', 'GWpublicip')]",
+        "GatewayName":"[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '/', 'GW')]",
+        "VPNConnectionName":"[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '/', 'VPNConnection')]"
 
     },
     "resources": [
@@ -524,6 +530,68 @@
                     },
                     "location": {
                         "value": "[parameters('location')]"
+                    }
+                }
+            }
+        },
+                {
+            "condition": "[and(not(empty(parameters('connectivitySubscriptionId'))),equals(parameters('enableVpnGw'), 'Yes'))]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-05-01",
+            "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'), '-connectivity')]",
+            "name": "[variables('deploymentNames').connectivityVPNDeploymentName]",
+            "dependsOn": [
+                "[variables('deploymentNames').connectivityDeploymentName]"
+            ],
+            "location": "[deployment().location]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "contentVersion": "1.0.0.0",
+                    "uri": "[variables('deploymentUris').connectivity]"
+                },
+                "parameters": {
+                    "vpnType": {
+                        "value": "RouteBased"
+                    },
+                    "localGatewayName": {
+                        "value": "[variables('localGatewayName')]"
+                    },
+                    "localGatewayIpAddress": {
+                        "value": "[parameters('VPNClientPublicAddress')]"
+                    },
+                    "localAddressPrefix": {
+                        "value": "[parameters('VPNClientAddressspace')]"
+                    },
+                    "virtualNetworkName": {
+                        "value": "[variables('connectivityvnet1name')]"
+                    },
+                    "azureVNetAddressPrefix": {
+                        "value": "[parameters('addressPrefix')]"
+                    },
+                    "subnetName": {
+                        "value": "subnet1"
+                    },
+                    "subnetPrefix": {
+                        "value": "[parameters('addressPrefix')]"
+                    },
+                    "gatewaySubnetPrefix": {
+                        "value": "[parameters('addressPrefix')]"
+                    },
+                    "gatewayPublicIPName": {
+                        "value": "[variables('gatewayPublicIPName')]"
+                    },
+                    "gatewayName": {
+                        "value": "[variables('GatewayName')]"
+                    },
+                    "gatewaySku": {
+                        "value": "Basic"
+                    },
+                    "connectionName": {
+                        "value": "[variables('VPNConnectionName')]"
+                    },
+                    "sharedKey": {
+                        "value": "[parameters('VPNSharedKey')]"
                     }
                 }
             }
