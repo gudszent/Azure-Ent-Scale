@@ -548,7 +548,7 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "contentVersion": "1.0.0.0",
-                    "uri": "[variables('deploymentUris').connectivity]"
+                    "uri": "[variables('deploymentUris').connectivityVPN]"
                 },
                 "parameters": {
                     "vpnType": {
