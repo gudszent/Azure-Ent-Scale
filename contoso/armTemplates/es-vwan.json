@@ -541,11 +541,10 @@
             "apiVersion": "2019-05-01",
             "name": "[variables('deploymentNames').connectivityVPNDeploymentName]",
             "resourceGroup": "[variables('rgroup')]",
+            "subscriptionId": "[parameters('connectivitySubscriptionId')]",
             "dependsOn": [
                 "[variables('deploymentNames').connectivityDeploymentName]"
             ],
-            "location": "[deployment().location]",
-            "subscriptionId": "[parameters('connectivitySubscriptionId')]",
             "properties": {
 
                 "mode": "Incremental",
