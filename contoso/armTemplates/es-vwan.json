@@ -541,6 +541,8 @@
             "apiVersion": "2019-05-01",
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'), '-connectivity')]",
             "name": "[variables('deploymentNames').connectivityVPNDeploymentName]",
+            "subscriptionId": "[parameters('connectivitySubscriptionId')]",
+            "resourceGroup": "[variables('rgroup')]",
             "dependsOn": [
                 "[variables('deploymentNames').connectivityDeploymentName]"
             ],
@@ -593,15 +595,6 @@
                     },
                     "sharedKey": {
                         "value": "[parameters('VPNSharedKey')]"
-                    },
-                    "ConnectivitySub": {
-                        "value": "[parameters('connectivitySubscriptionId')]"
-                    },
-                    "location": {
-                        "value": "[parameters('location')]"
-                    },
-                    "rgroup": {
-                        "value": "[variables('rgroup')]"
                     }
                 }
             }
