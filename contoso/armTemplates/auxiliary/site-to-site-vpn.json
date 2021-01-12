@@ -28,11 +28,8 @@
             }
         },
         "localAddressPrefix": {
-            "type": "array",
-            "defaultValue": [
-                "192.168.0.0/16",
-                "172.16.0.0/12"
-            ],
+            "type": "string",
+            "defaultValue": "192.168.0.0/16",
             "metadata": {
                 "description": "CIDR block representing the address space of the OnPremise VPN network's Subnet"
             }
