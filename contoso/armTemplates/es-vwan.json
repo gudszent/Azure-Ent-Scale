@@ -545,9 +545,9 @@
                 "[variables('deploymentNames').connectivityDeploymentName]"
             ],
             "location": "[deployment().location]",
+            "subscriptionId": "[parameters('connectivitySubscriptionId')]",
             "properties": {
-                "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'), '-connectivity')]",
-                "subscriptionId": "[parameters('connectivitySubscriptionId')]",
+
                 "mode": "Incremental",
                 "templateLink": {
                     "contentVersion": "1.0.0.0",
