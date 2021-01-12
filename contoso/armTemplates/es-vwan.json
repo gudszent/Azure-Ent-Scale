@@ -542,6 +542,7 @@
             "name": "[variables('deploymentNames').connectivityVPNDeploymentName]",
             "resourceGroup": "[variables('rgroup')]",
             "subscriptionId": "[parameters('connectivitySubscriptionId')]",
+            "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'), '-connectivity')]",
             "dependsOn": [
                 "[variables('deploymentNames').connectivityDeploymentName]"
             ],
