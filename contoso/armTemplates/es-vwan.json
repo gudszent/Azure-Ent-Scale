@@ -539,15 +539,15 @@
             "condition": "[and(not(empty(parameters('connectivitySubscriptionId'))),equals(parameters('enableVpnGw'), 'Yes'))]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-05-01",
-            "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'), '-connectivity')]",
             "name": "[variables('deploymentNames').connectivityVPNDeploymentName]",
-            "subscriptionId": "[parameters('connectivitySubscriptionId')]",
             "resourceGroup": "[variables('rgroup')]",
             "dependsOn": [
                 "[variables('deploymentNames').connectivityDeploymentName]"
             ],
             "location": "[deployment().location]",
             "properties": {
+                "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'), '-connectivity')]",
+                "subscriptionId": "[parameters('connectivitySubscriptionId')]",
                 "mode": "Incremental",
                 "templateLink": {
                     "contentVersion": "1.0.0.0",
