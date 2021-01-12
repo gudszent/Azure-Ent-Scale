@@ -538,7 +538,7 @@
         {
             "condition": "[and(not(empty(parameters('connectivitySubscriptionId'))),equals(parameters('enableVpnGw'), 'Yes'))]",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-05-01",
+            "apiVersion": "2020-06-01",
             "name": "[variables('deploymentNames').connectivityVPNDeploymentName]",
             "resourceGroup": "[variables('rgroup')]",
             "subscriptionId": "[parameters('connectivitySubscriptionId')]",
