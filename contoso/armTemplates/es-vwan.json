@@ -542,13 +542,13 @@
             "name": "[variables('deploymentNames').connectivityVPNDeploymentName]",
             "resourceGroup": "[variables('rgroup')]",
             "subscriptionId": "[parameters('connectivitySubscriptionId')]",
-            "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'), '-connectivity')]",
             "dependsOn": [
                 "[variables('deploymentNames').connectivityDeploymentName]"
             ],
             "properties": {
 
                 "mode": "Incremental",
+                "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'), '-connectivity')]",
                 "templateLink": {
                     "contentVersion": "1.0.0.0",
                     "uri": "[variables('deploymentUris').connectivityVPN]"
