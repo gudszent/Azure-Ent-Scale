@@ -111,14 +111,18 @@
 
     },
     "variables": {
-        "gatewaySubnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('virtualNetworkName'),'GatewaySubnet')]"
+        "gatewaySubnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('virtualNetworkName'),'GatewaySubnet')]",
+        "localgwname": "[concat('VPN', '-',parameters('localGatewayName')) ]",
+        "VPNconnections": "[concat('VPN', '-',parameters('connectionName')) ]",
+        "gatewayPublicIPName": "[concat('VPN', '-',parameters('gatewayPublicIPName')) ]",
+        "virtualNetworkGateways": "[concat('VPN', '-',parameters('gatewayName')) ]"
     },
     "resources": [
 
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/localNetworkGateways",
-            "name": "[parameters('localGatewayName')]",
+            "name": "[variables('localgwname')]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "localNetworkAddressSpace": {
@@ -129,7 +133,7 @@
         },
         {
             "apiVersion": "2015-06-15",
-            "name": "[parameters('connectionName')]",
+            "name": "[variables('VPNconnections')]",
             "type": "Microsoft.Network/connections",
             "location": "[resourceGroup().location]",
             "dependsOn": [
@@ -178,7 +182,7 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[parameters('gatewayPublicIPName')]",
+            "name": "[variables('gatewayPublicIPName')]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic"
@@ -187,7 +191,7 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/virtualNetworkGateways",
-            "name": "[parameters('gatewayName')]",
+            "name": "[variables('virtualNetworkGateways')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[concat('Microsoft.Network/publicIPAddresses/', parameters('gatewayPublicIPName'))]",
