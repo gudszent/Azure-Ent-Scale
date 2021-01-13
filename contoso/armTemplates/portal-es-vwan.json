@@ -337,9 +337,9 @@
                     {
                         "name": "esAddressSubnet1",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "Address space (required for Connectivity)",
+                        "label": "Subnet Address space (required for Connectivity)",
                         "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.0.0/24)",
-                        "defaultValue": "10.100.0.0/16",
+                        "defaultValue": "10.100.0.0/24",
                         "visible": "[equals(steps('esConnectivityGoalState').esConnectivity, 'Yes')]",
                         "constraints": {
                             "required": true,
@@ -705,7 +705,8 @@
             "enableActivityLog": "[steps('esGoalState').esActivityLog]",
             "enableAsc": "[steps('esGoalState').esAsc]",
             "enableSecuritySolution": "[steps('esGoalState').esSecuritySolution]",
-            "addressPrefix": "[steps('esConnectivityGoalState').esAddress]",
+            "addressPrefix": "[steps('esConnectivityGoalState').esAddress]", 
+            "esAddressSubnet1": "[steps('esConnectivityGoalState').esAddressSubnet1]",
             "esConnectivitypeeringlz": "[steps('esConnectivityGoalState').esConnectivitypeeringlz]",
             "addressPrefixlz": "[steps('esConnectivityGoalState').esAddresslz]",
             "VPNClientPublicAddress": "[steps('esConnectivityGoalState').esVPNClientPublicAddress]",
