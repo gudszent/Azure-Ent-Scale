@@ -142,7 +142,7 @@
             ],
             "properties": {
                 "virtualNetworkGateway1": {
-                    "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', variables('localgwname'))]"
+                    "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', variables('virtualNetworkGateways'))]"
                 },
                 "localNetworkGateway2": {
                     "id": "[resourceId('Microsoft.Network/localNetworkGateways', variables('localgwname'))]"
