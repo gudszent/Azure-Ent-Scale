@@ -239,10 +239,10 @@
         },
         "connectivityvnet1name": "VNet1",
         "connectivityvnet2name": "VNet2",
-        "localGatewayName": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '/', 'L-GW')]",
-        "gatewayPublicIPName": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '/', 'GWpublicip')]",
-        "GatewayName": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '/', 'GW')]",
-        "VPNConnectionName": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '/', 'VPNConnection')]",
+        "localGatewayName": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '-', 'L-GW')]",
+        "gatewayPublicIPName": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '-', 'GWpublicip')]",
+        "GatewayName": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '-', 'GW')]",
+        "VPNConnectionName": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity', '-', 'VPNConnection')]",
         "rgroup": "[concat(parameters('enterpriseScaleCompanyPrefix'), '-connectivity')]"
 
     },
