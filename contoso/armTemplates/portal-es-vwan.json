@@ -283,7 +283,7 @@
                         "type": "Microsoft.Common.OptionsGroup",
                         "label": "Deploy Peering to Landingzone",
                         "defaultValue": "No",
-                        "toolTip": "If 'Yes' is selected will create peering nemwork with landingzone",
+                        "toolTip": "If 'Yes' is selected will create peering network with landingzone",
                         "constraints": {
                             "allowedValues": [
                                 {
@@ -384,6 +384,18 @@
                         "label": "VPN Client IP Address space",
                         "toolTip": "Provide address prefix in CIDR notation (e.g 10.6.0.0/16)",
                         "defaultValue": "10.6.0.0/16",
+                        "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "The virtual Connectivity network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
+                        }
+                    },
+                    {
+                        "name": "esVPNGWAddressspace",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "VPN Gateway IP Address space",
+                        "toolTip": "Provide address prefix in CIDR notation (e.g 10.10.0.0/16)",
+                        "defaultValue": "10.10.0.0/16",
                         "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
                         "constraints": {
                             "required": true,
@@ -686,6 +698,7 @@
             "addressPrefixlz": "[steps('esConnectivityGoalState').esAddresslz]",
             "VPNClientPublicAddress": "[steps('esConnectivityGoalState').esVPNClientPublicAddress]",
             "VPNClientAddressspace": "[steps('esConnectivityGoalState').esVPNClientAddressspace]",
+            "VPNGWAddressspace": "[steps('esConnectivityGoalState').esVPNGWAddressspace]",
             "VPNSharedKey": "[steps('esConnectivityGoalState').esVPNSharedKey]",
             "enableVpnGw": "[steps('esConnectivityGoalState').esVpnGw]",
             "connectivitySubscriptionId": "[if(not(equals(steps('esConnectivityGoalState').esConnectivitySub, steps('esGoalState').esMgmtSub)), steps('esConnectivityGoalState').esConnectivitySub, '')]",

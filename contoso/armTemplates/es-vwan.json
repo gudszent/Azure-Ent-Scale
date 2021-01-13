@@ -193,6 +193,11 @@
             "defaultValue": ""
 
         },
+        "VPNGWAddressspace": {
+            "type": "string",
+            "defaultValue": ""
+
+        },
         "VPNSharedKey": {
             "type": "string",
             "defaultValue": ""
@@ -579,7 +584,7 @@
                         "value": "[parameters('addressPrefix')]"
                     },
                     "gatewaySubnetPrefix": {
-                        "value": "[parameters('addressPrefix')]"
+                        "value": "[parameters('VPNGWAddressspace')]"
                     },
                     "gatewayPublicIPName": {
                         "value": "[variables('gatewayPublicIPName')]"
