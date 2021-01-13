@@ -44,9 +44,16 @@
                 "description": ""
             }
         },
-        "LandzoneSub": {
+        "esAddressSubnet1": {
             "type": "string",
             "defaultValue": "5871a190-7249-4b64-89cb-16717fbdc911",
+            "metadata": {
+                "description": ""
+            }
+        },
+        "LandzoneSub": {
+            "type": "string",
+            "defaultValue": "10.100.0.0/24",
             "metadata": {
                 "description": ""
             }
@@ -63,7 +70,7 @@
         "vNet1": {
             "addressSpacePrefix": "[parameters('vNet1Address')]",
             "subnetName": "subnet1",
-            "subnetPrefix": "[parameters('vNet1Address')]"
+            "subnetPrefix": "[parameters('esAddressSubnet1')]"
         },
         "vNet2": {
             "addressSpacePrefix": "[parameters('vNet2Address')]",

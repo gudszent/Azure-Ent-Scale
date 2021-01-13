@@ -134,6 +134,10 @@
             "type": "string",
             "defaultValue": ""
         },
+        "esAddressSubnet1": {
+            "type": "string",
+            "defaultValue": ""
+        },
         "addressPrefixlz": {
             "type": "string",
             "defaultValue": ""
@@ -534,6 +538,9 @@
                     "LandzoneSub": {
                         "value": "[parameters('lzSubscriptionId')]"
                     },
+                    "esAddressSubnet1": {
+                        "value": "[parameters('esAddressSubnet1')]"
+                    },
                     "location": {
                         "value": "[parameters('location')]"
                     }
@@ -581,7 +588,7 @@
                         "value": "subnet1"
                     },
                     "subnetPrefix": {
-                        "value": "[parameters('addressPrefix')]"
+                        "value": "[parameters('esAddressSubnet1')]"
                     },
                     "gatewaySubnetPrefix": {
                         "value": "[parameters('VPNGWAddressspace')]"

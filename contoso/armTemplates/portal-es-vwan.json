@@ -335,10 +335,22 @@
                         }
                     },
                     {
+                        "name": "esAddressSubnet1",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Address space (required for Connectivity)",
+                        "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.0.0/24)",
+                        "defaultValue": "10.100.0.0/16",
+                        "visible": "[equals(steps('esConnectivityGoalState').esConnectivity, 'Yes')]",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "The virtual Connectivity network's address space, specified as one address prefixes in CIDR notation (e.g. 10.100.0.0/16)"
+                        }
+                    },
+                    {
                         "name": "esAddresslz",
                         "type": "Microsoft.Common.TextBox",
                         "label": "Address space (required for LandingZone)",
-                        "toolTip": "Provide address prefix in CIDR notation (e.g 10.110.0.0/16)",
+                        "toolTip": "Provide address prefix in CIDR notation (e.g 10.110.0.0/24)",
                         "defaultValue": "10.110.0.0/16",
                         "visible": "[equals(steps('esConnectivityGoalState').esConnectivity, 'Yes')]",
                         "constraints": {
@@ -394,7 +406,7 @@
                         "name": "esVPNGWAddressspace",
                         "type": "Microsoft.Common.TextBox",
                         "label": "VPN Gateway IP Address space",
-                        "toolTip": "Provide address prefix in CIDR notation (e.g 10.10.0.0/16)",
+                        "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.1.0/24)",
                         "defaultValue": "10.10.0.0/16",
                         "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
                         "constraints": {
