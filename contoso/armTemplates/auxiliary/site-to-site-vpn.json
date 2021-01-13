@@ -137,15 +137,15 @@
             "type": "Microsoft.Network/connections",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[concat('Microsoft.Network/virtualNetworkGateways/', parameters('gatewayName'))]",
-                "[concat('Microsoft.Network/localNetworkGateways/', parameters('localGatewayName'))]"
+                "[concat('Microsoft.Network/virtualNetworkGateways/', variables('localgwname'))]",
+                "[concat('Microsoft.Network/localNetworkGateways/', variables('localgwname'))]"
             ],
             "properties": {
                 "virtualNetworkGateway1": {
-                    "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('gatewayName'))]"
+                    "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', variables('localgwname'))]"
                 },
                 "localNetworkGateway2": {
-                    "id": "[resourceId('Microsoft.Network/localNetworkGateways', parameters('localGatewayName'))]"
+                    "id": "[resourceId('Microsoft.Network/localNetworkGateways', variables('localgwname'))]"
                 },
                 "connectionType": "IPsec",
                 "routingWeight": 10,
@@ -194,7 +194,7 @@
             "name": "[variables('virtualNetworkGateways')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[concat('Microsoft.Network/publicIPAddresses/', parameters('gatewayPublicIPName'))]",
+                "[concat('Microsoft.Network/publicIPAddresses/', variables('gatewayPublicIPName'))]",
                 "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
             ],
             "properties": {
@@ -206,7 +206,7 @@
                                 "id": "[variables('gatewaySubnetRef')]"
                             },
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('gatewayPublicIPName'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('gatewayPublicIPName'))]"
                             }
                         },
                         "name": "vnetGatewayConfig"
