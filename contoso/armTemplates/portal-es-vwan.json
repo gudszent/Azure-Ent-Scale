@@ -407,7 +407,7 @@
                         "type": "Microsoft.Common.TextBox",
                         "label": "VPN Gateway IP Address space",
                         "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.1.0/24)",
-                        "defaultValue": "10.10.0.0/16",
+                        "defaultValue": "10.100.1.0/24",
                         "visible": "[equals(steps('esConnectivityGoalState').esVpnGw, 'Yes')]",
                         "constraints": {
                             "required": true,
