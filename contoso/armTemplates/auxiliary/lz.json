@@ -106,6 +106,10 @@
             "deploySqlAuditing": "[guid(concat(parameters('toplevelManagementGroupPrefix'),variables('policyAssignmentNames').deploySqlAuditing))]",
             "deployStorageAtp": "[guid(concat(parameters('toplevelManagementGroupPrefix'),variables('policyAssignmentNames').deployStorageAtp))]",
             "deploySqlEncryption": "[guid(concat(parameters('toplevelManagementGroupPrefix'),variables('policyAssignmentNames').deploySqlEncryption))]"
+        },
+                "arrayToTest": {
+            "type": "array",
+            "defaultValue": [ "one", "two", "three" ]
         }
         //"blankTemplateEscaped": "{\"$schema\":\"https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"variables\":{},\"resources\":[],\"outputs\":{}}"
     },
@@ -171,37 +175,6 @@
                 "principalId": "[if(equals(parameters('enableSqlAudit'), 'Yes'), toLower(reference(concat('/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignmentNames').deploySqlAuditing), '2018-05-01', 'Full' ).identity.principalId), 'na')]"
             }
         },
-        /*
-        {
-            "condition": "[equals(parameters('enableSqlSecurity'), 'Yes')]",
-            "type": "Microsoft.Authorization/policyAssignments",
-            "apiVersion": "2018-05-01",
-            "name": "[variables('policyAssignmentNames').deploySqlSecurity]",
-            "location": "[deployment().location]",
-            "identity": {
-                "type": "SystemAssigned"
-            },
-            "properties": {
-                "description": "Deploy-SQL-Security",
-                "displayName": "Deploy-SQL-Security",
-                "policyDefinitionId": "[variables('policyDefinitions').deploySqlSecurity]",
-                "scope": "[variables('scope')]"
-            }
-        },
-        {
-            "condition": "[equals(parameters('enableSqlSecurity'), 'Yes')]",
-            "type": "Microsoft.Authorization/roleAssignments",
-            "apiVersion": "2019-04-01-preview",
-            "name": "[variables('roleAssignmentNames').deploySqlSecurity]",
-            "dependsOn": [
-                "[variables('policyAssignmentNames').deploySqlSecurity]"
-            ],
-            "properties": {
-                "principalType": "ServicePrincipal",
-                "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', variables('rbacOwner'))]",
-                "principalId": "[if(equals(parameters('enableSqlSecurity'), 'Yes'), toLower(reference(concat('/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignmentNames').deploysqlSecurity), '2018-05-01', 'Full' ).identity.principalId), 'na')]"
-            }
-        },*/
         {
             "condition": "[equals(parameters('enableSqlEncryption'), 'Yes')]",
             "type": "Microsoft.Authorization/policyAssignments",
@@ -282,7 +255,7 @@
                 "displayName": "[variables('policyAssignmentNames').GDPRAllowedEurope]",
                 "policyDefinitionId": "[variables('policyDefinitions').GDPRAllowedEurope]",
                 "scope": "[variables('scope')]",
-                "parameters": [ "europe","northeurope","westeurope" ]
+                "parameters": "[createArray('europe','northeurope','westeurope')]"
             }
         },
         {
