@@ -688,7 +688,7 @@
                         "multiLine": true,
                         "visible": "[equals(steps('lzGoalState').esAllowedSize, 'Yes')]",
                         "constraints": {
-                            "allowedValues": "[map(steps('lzGoalState').esAllowedSizeApi.value, (sub) => parse(concat('{\"label\":\"', sub.name, '\"}')))]",
+                            "allowedValues": "[map(steps('lzGoalState').esAllowedSizeApi.value, (item) => parse(concat('{\"label\":\"', item.name, '\",\"value\":\"', item.name, '\"}')))]",
                             "required": false
                         }
                     }
