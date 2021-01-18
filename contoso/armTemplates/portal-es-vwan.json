@@ -683,9 +683,8 @@
                         "label": "Allowed virtual machine size SKUs. List based on North Europe location.",
                         "toolTip": "",
                         "multiselect": true,
-                        "selectAll": false,
+                        "selectAll": true,
                         "filter": true,
-                        "filterPlaceholder": "Filter items ...",
                         "multiLine": true,
                         "visible": "[equals(steps('lzGoalState').esAllowedSize, 'Yes')]",
                         "constraints": {
