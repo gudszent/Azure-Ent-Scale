@@ -61,7 +61,15 @@
                 "No"
             ],
             "defaultValue": "No"
-        }        
+        },
+        "GDPRAllowedEurope": {
+            "type": "string",
+            "defaultValue": "No"
+        },
+        "AllowedSize": {
+            "type": "array",
+            "defaultValue": "No"
+        }
     },
     "variables": {
         "scope": "[concat('/providers/Microsoft.Management/managementGroups/', parameters('topLevelManagementGroupPrefix'), '-landingzones')]",
@@ -74,7 +82,9 @@
             "deploySqlSecurity": "/providers/Microsoft.Authorization/policyDefinitions/f4c68484-132f-41f9-9b6d-3e4b1cb55036",
             "deploySqlAuditing": "/providers/Microsoft.Authorization/policyDefinitions/a6fb4358-5bf4-4ad7-ba82-2cd2f41ce5e9",
             "storageHttps": "/providers/Microsoft.Authorization/policyDefinitions/404c3081-a854-4457-ae30-26a93ef643f9",
-            "deployStorageAtp": "/providers/Microsoft.Authorization/policyDefinitions/361c2074-3595-4e5d-8cab-4f21dffc835c"
+            "deployStorageAtp": "/providers/Microsoft.Authorization/policyDefinitions/361c2074-3595-4e5d-8cab-4f21dffc835c",
+            "GDPRAllowedEurope": "/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c",
+            "AllowedSize": "/providers/Microsoft.Authorization/policyDefinitions/cccc23c7-8427-4f53-ad12-b6a63eb452b3"
         },
         "policyAssignmentNames": {
             "deployVmBackup": "Deploy-VM-Backup",
@@ -85,7 +95,9 @@
             "deploysqlSecurity": "Deploy-SQL-Security",
             "deploySqlAuditing": "Deploy-SQL-DB-Auditing",
             "storageHttps": "Deny-Storage-http",
-            "deployStorageAtp": "Deploy-Storage-ATP"
+            "deployStorageAtp": "Deploy-Storage-ATP",
+            "GDPRAllowedEurope": "Only-Europe-location-allowed",
+            "AllowedSize": "Allowed-VM-Size"
         },
         "rbacOwner": "8e3af657-a8ff-443c-a75c-2fe8c4bcb635",
         "roleAssignmentNames": {
@@ -219,7 +231,7 @@
                 "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', variables('rbacOwner'))]",
                 "principalId": "[if(equals(parameters('enableSqlEncryption'), 'Yes'), toLower(reference(concat('/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignmentNames').deploySqlEncryption), '2018-05-01', 'Full' ).identity.principalId), 'na')]"
             }
-        },                  
+        },
         {
             "condition": "[equals(parameters('enableStorageHttps'), 'Yes')]",
             "type": "Microsoft.Authorization/policyAssignments",
@@ -230,7 +242,7 @@
                 "description": "Enforce-Secure-Storage",
                 "displayName": "Enforce-Secure-Storage",
                 "policyDefinitionId": "[variables('policyDefinitions').storageHttps]",
-                "scope": "[variables('scope')]"             
+                "scope": "[variables('scope')]"
             }
         },
         {
@@ -258,7 +270,35 @@
                 "policyDefinitionId": "[variables('policyDefinitions').denySubnetWithoutNsg]",
                 "scope": "[variables('scope')]"
             }
-        }        
+        },
+        {
+            "condition": "[equals(parameters('GDPRAllowedEurope'), 'Yes')]",
+            "type": "Microsoft.Authorization/policyAssignments",
+            "apiVersion": "2018-05-01",
+            "name": "[variables('policyAssignmentNames').GDPRAllowedEurope]",
+            "location": "[deployment().location]",
+            "properties": {
+                "description": "[variables('policyAssignmentNames').GDPRAllowedEurope]",
+                "displayName": "[variables('policyAssignmentNames').GDPRAllowedEurope]",
+                "policyDefinitionId": "[variables('policyDefinitions').GDPRAllowedEurope]",
+                "scope": "[variables('scope')]",
+                "parameters": [ "europe","northeurope","westeurope" ]
+            }
+        },
+        {
+            "condition": "[not(empty(parameters('AllowedSize')))]",
+            "type": "Microsoft.Authorization/policyAssignments",
+            "apiVersion": "2018-05-01",
+            "name": "[variables('policyAssignmentNames').AllowedSize]",
+            "location": "[deployment().location]",
+            "properties": {
+                "description": "[variables('policyAssignmentNames').AllowedSize]",
+                "displayName": "[variables('policyAssignmentNames').AllowedSize]",
+                "policyDefinitionId": "[variables('policyDefinitions').AllowedSize]",
+                "scope": "[variables('scope')]",
+                "parameters": "[parameters('AllowedSize')]"
+            }
+        }
     ],
     "outputs": {}
 }

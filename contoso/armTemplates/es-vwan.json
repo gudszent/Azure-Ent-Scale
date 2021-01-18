@@ -183,7 +183,7 @@
             "defaultValue": ""
         },
         "AllowedSize": {
-            "type": "string",
+            "type": "array",
             "defaultValue": ""
 
         },
@@ -440,6 +440,12 @@
                     },
                     "denySubnetWithoutNsg": {
                         "value": "[parameters('denySubnetWithoutNsg')]"
+                    },
+                    "GDPRAllowedEurope": {
+                        "value": "[parameters('GDPRAllowedEurope')]"
+                    },
+                    "AllowedSize": {
+                        "value": "[parameters('AllowedSize')]"
                     }
                 }
             }
