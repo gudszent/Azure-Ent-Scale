@@ -114,6 +114,9 @@
         "policyParameters": {
             "listOfAllowedLocations": {
                 "value": [ "NorthEurope", "WestEurope", "Europe" ]
+            },
+            "listOfAllowedSKUs": {
+                "value": "[parameters('AllowedSize')]"
             }
         }
         //"blankTemplateEscaped": "{\"$schema\":\"https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"variables\":{},\"resources\":[],\"outputs\":{}}"
@@ -275,7 +278,7 @@
                 "displayName": "[variables('policyAssignmentNames').AllowedSize]",
                 "policyDefinitionId": "[variables('policyDefinitions').AllowedSize]",
                 "scope": "[variables('scope')]",
-                "parameters": "[parameters('AllowedSize')]"
+                "parameters": "[variables('policyParameters')]"
             }
         }
     ],
