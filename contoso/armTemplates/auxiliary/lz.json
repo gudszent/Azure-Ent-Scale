@@ -72,7 +72,7 @@
         },
         "arrayToTest": {
             "type": "array",
-            "defaultValue": [  "europe","northeurope","westeurope" ]
+            "defaultValue": [ "europe", "northeurope", "westeurope" ]
         }
     },
     "variables": {
@@ -111,12 +111,14 @@
             "deployStorageAtp": "[guid(concat(parameters('toplevelManagementGroupPrefix'),variables('policyAssignmentNames').deployStorageAtp))]",
             "deploySqlEncryption": "[guid(concat(parameters('toplevelManagementGroupPrefix'),variables('policyAssignmentNames').deploySqlEncryption))]"
         },
-        "arrayToTest": {
-            "type": "array",
-            "defaultValue": [ "one", "two", "three" ]
+        "policyParameters": {
+            "listOfAllowedLocations": {
+                "value": [ "NorthEurope", "WestEurope", "Europe" ]
+            }
         }
         //"blankTemplateEscaped": "{\"$schema\":\"https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"variables\":{},\"resources\":[],\"outputs\":{}}"
     },
+
     "resources": [
         {
             "condition": "[equals(parameters('enableVmBackup'), 'Yes')]",
@@ -259,7 +261,7 @@
                 "displayName": "[variables('policyAssignmentNames').GDPRAllowedEurope]",
                 "policyDefinitionId": "[variables('policyDefinitions').GDPRAllowedEurope]",
                 "scope": "[variables('scope')]",
-                "parameters": "[parameters('arrayToTest')]"
+                "parameters": "[variables('policyParameters')]"
             }
         },
         {
