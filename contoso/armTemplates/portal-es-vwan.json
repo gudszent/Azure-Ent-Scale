@@ -704,7 +704,7 @@
             "enableActivityLog": "[steps('esGoalState').esActivityLog]",
             "enableAsc": "[steps('esGoalState').esAsc]",
             "enableSecuritySolution": "[steps('esGoalState').esSecuritySolution]",
-            "addressPrefix": "[steps('esConnectivityGoalState').esAddress]", 
+            "addressPrefix": "[steps('esConnectivityGoalState').esAddress]",
             "esAddressSubnet1": "[steps('esConnectivityGoalState').esAddressSubnet1]",
             "esConnectivitypeeringlz": "[steps('esConnectivityGoalState').esConnectivitypeeringlz]",
             "addressPrefixlz": "[steps('esConnectivityGoalState').esAddresslz]",
@@ -722,7 +722,7 @@
             "denySubnetWithoutNsg": "[steps('lzGoalState').esNsg]",
             "denyIpForwarding": "[steps('lzGoalState').esIpForwarding]",
             "GDPRAllowedEurope": "[steps('lzGoalState').esGDPRAllowedEurope]",
-            "isAllowedSize": "[steps('lzGoalState').esAllowedSize]",            
+            "isAllowedSize": "[steps('lzGoalState').esAllowedSize]",
             "enterpriseScaleCompanyPrefix": "[steps('lzSettings').esMgmtGroup]",
             "AllowedSize": "[steps('lzGoalState').esSize]"
         }

@@ -96,7 +96,7 @@
             "deploySqlAuditing": "Deploy-SQL-DB-Auditing",
             "storageHttps": "Deny-Storage-http",
             "deployStorageAtp": "Deploy-Storage-ATP",
-            "GDPRAllowedEurope": "Only-Europe-location-allowed",
+            "GDPRAllowedEurope": "Eu-location-allowed",
             "AllowedSize": "Allowed-VM-Size"
         },
         "rbacOwner": "8e3af657-a8ff-443c-a75c-2fe8c4bcb635",
