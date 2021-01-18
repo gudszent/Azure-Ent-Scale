@@ -111,10 +111,12 @@
             "deployStorageAtp": "[guid(concat(parameters('toplevelManagementGroupPrefix'),variables('policyAssignmentNames').deployStorageAtp))]",
             "deploySqlEncryption": "[guid(concat(parameters('toplevelManagementGroupPrefix'),variables('policyAssignmentNames').deploySqlEncryption))]"
         },
-        "policyParameters": {
+        "listOfAllowedLocations_array": {
             "listOfAllowedLocations": {
                 "value": [ "NorthEurope", "WestEurope", "Europe" ]
-            },
+            }
+        },
+        "listOfAllowedSKUs_array": {
             "listOfAllowedSKUs": {
                 "value": "[parameters('AllowedSize')]"
             }
@@ -264,7 +266,7 @@
                 "displayName": "[variables('policyAssignmentNames').GDPRAllowedEurope]",
                 "policyDefinitionId": "[variables('policyDefinitions').GDPRAllowedEurope]",
                 "scope": "[variables('scope')]",
-                "parameters": "[variables('policyParameters')]"
+                "parameters": "[variables('listOfAllowedLocations_array')]"
             }
         },
         {
@@ -278,7 +280,7 @@
                 "displayName": "[variables('policyAssignmentNames').AllowedSize]",
                 "policyDefinitionId": "[variables('policyDefinitions').AllowedSize]",
                 "scope": "[variables('scope')]",
-                "parameters": "[variables('policyParameters')]"
+                "parameters": "[variables('listOfAllowedSKUs_array')]"
             }
         }
     ],
