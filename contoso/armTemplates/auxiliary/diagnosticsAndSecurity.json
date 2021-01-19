@@ -80,7 +80,6 @@
             "azureActivityLog": "Deploy-AzActivity-Log",
             "vmMonitoring": "Deploy-VM-Monitoring",
             "vmssMonitoring": "Deploy-VMSS-Monitoring",
-            "resourceDiagnostics": "Deploy-Resource-Diag",
             "azureSecurity": "Deploy-ASC-Security",
             "ascMonitoring": "Deploy-ASC-Monitoring"
         },
@@ -90,8 +89,7 @@
             "deployVmMonitoring": "[guid(concat(parameters('toplevelManagementGroupPrefix'),variables('policyAssignmentNames').vmMonitoring))]",
             "deployVmssMonitoring": "[guid(concat(parameters('toplevelManagementGroupPrefix'),variables('policyAssignmentNames').vmssMonitoring))]",            
             "deployAzureSecurity": "[guid(concat(parameters('toplevelManagementGroupPrefix'),variables('policyAssignmentNames').azureSecurity))]",
-            "deployAscMonitoring": "[guid(concat(parameters('toplevelManagementGroupPrefix'), variables('policyAssignmentNames').ascMonitoring))]",
-            "deployResourceRiagnostics": "[guid(concat(parameters('topLevelManagementGroupPrefix'), variables('policyAssignmentNames').resourceDiagnostics))]"
+            "deployAscMonitoring": "[guid(concat(parameters('toplevelManagementGroupPrefix'), variables('policyAssignmentNames').ascMonitoring))]"
         },
         "blankTemplateEscaped": "{\"$schema\":\"https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"variables\":{},\"resources\":[],\"outputs\":{}}",
         "connectivityAscResourceDeploymentName": "[take(concat('asc-con', deployment().location, deployment().name), 64)]",
@@ -212,21 +210,7 @@
                 "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', variables('rbacOwner'))]",
                 "principalId": "[if(equals(parameters('enableLogAnalytics'), 'Yes'), toLower(reference(concat('/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignmentNames').vmssMonitoring), '2018-05-01', 'Full' ).identity.principalId), 'na')]"
             }
-        },    
-        {
-            "condition": "[and(not(empty(parameters('managementSubscriptionId'))),equals(parameters('enableLogAnalytics'), 'Yes'))]",
-            "type": "Microsoft.Authorization/roleAssignments",
-            "apiVersion": "2019-04-01-preview",
-            "name": "[variables('roleAssignmentNames').deployResourceRiagnostics]",
-            "dependsOn": [
-                "[variables('policyAssignmentNames').resourceDiagnostics]"
-            ],
-            "properties": {
-                "principalType": "ServicePrincipal",
-                "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', variables('rbacOwner'))]",
-                "principalId": "[if(equals(parameters('enableLogAnalytics'), 'Yes'), toLower(reference(concat('/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignmentNames').resourceDiagnostics), '2018-05-01', 'Full' ).identity.principalId), 'na')]"
-            }
-        },        
+        },      
         {
             "condition": "[and(not(empty(parameters('managementSubscriptionId'))),or(equals(parameters('enableAsc'), 'Standard'), equals(parameters('enableAsc'), 'Free')))]",
             "type": "Microsoft.Authorization/policyAssignments",
