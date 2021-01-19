@@ -46,21 +46,21 @@
         },
         "esAddressSubnet1": {
             "type": "string",
-            "defaultValue": "5871a190-7249-4b64-89cb-16717fbdc911",
+            "defaultValue":"10.100.0.0/24" ,
             "metadata": {
                 "description": ""
             }
         },
         "LandzoneSub": {
             "type": "string",
-            "defaultValue": "10.100.0.0/24",
+            "defaultValue": "5871a190-7249-4b64-89cb-16717fbdc911",
             "metadata": {
                 "description": ""
             }
         },
         "topLevelManagementGroupPrefix": {
             "type": "string",
-            "defaultValue": "test",
+            "defaultValue": "1",
             "metadata": {
                 "description": ""
             }
@@ -83,7 +83,11 @@
         "vNet1tovNet2PeeringName": "[concat(parameters('vNet1Name'), '-', parameters('vNet2Name'))]",
         "vNet2tovNet1PeeringName": "[concat(parameters('vNet2Name'), '-', parameters('vNet1Name'))]",
         "vNet1tovNet2Peeringid": "[concat('/subscriptions/',parameters('LandzoneSub'),'/resourceGroups/',variables('rgNamelandzone'),'/providers/Microsoft.Network/virtualNetworks/',parameters('vNet2Name'))]",
-        "vNet2tovNet1Peeringid": "[concat('/subscriptions/',parameters('ConnectivitySub'),'/resourceGroups/',variables('rgNameconnectivity'),'/providers/Microsoft.Network/virtualNetworks/',parameters('vNet1Name'))]"
+        "vNet2tovNet1Peeringid": "[concat('/subscriptions/',parameters('ConnectivitySub'),'/resourceGroups/',variables('rgNameconnectivity'),'/providers/Microsoft.Network/virtualNetworks/',parameters('vNet1Name'))]",
+        "vNET1-NSG": "[concat(parameters('vNet1Name'), '-NSG')]",
+        "vNET2-NSG": "[concat(parameters('vNet2Name'), '-NSG')]",
+        "vNET1-NSG-ID": "[concat('/subscriptions/',parameters('ConnectivitySub'),'/resourceGroups/',variables('rgNameconnectivity'), '/providers/Microsoft.Network/networkSecurityGroups/')]",
+        "vNET2-NSG-ID": "[concat('/subscriptions/',parameters('LandzoneSub'),'/resourceGroups/',variables('rgNamelandzone'), '/providers/Microsoft.Network/networkSecurityGroups/')]"
 
 
     },
@@ -126,7 +130,7 @@
                                         {
                                             "apiVersion": "2020-05-01",
                                             "type": "Microsoft.Network/networkSecurityGroups",
-                                            "name": "[concat(parameters('vNet1Name'), '-NSG')]",
+                                            "name": "[variables('vNET1-NSG')]",
                                             "location": "[parameters('location')]"
                                         },
                                         {
@@ -135,7 +139,7 @@
                                             "name": "[parameters('vNet1Name')]",
                                             "location": "[parameters('location')]",
                                             "dependsOn": [
-                                                "[concat('Microsoft.Network/networkSecurityGroups/', concat(parameters('vNet1Name'), '-NSG'))]"
+                                                "[concat('Microsoft.Network/networkSecurityGroups/', variables('vNET1-NSG'))]"
                                             ],
                                             "comments": "This is the first vNet",
                                             "properties": {
@@ -150,7 +154,7 @@
                                                         "properties": {
                                                             "addressPrefix": "[variables('vNet1').subnetPrefix]",
                                                             "networkSecurityGroup": {
-                                                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('vNet1Name'), '-NSG'))]"
+                                                                "id": "[concat(variables('vNET1-NSG-ID'), variables('vNET1-NSG'))]"
                                                             }
                                                         }
                                                     }
@@ -203,7 +207,7 @@
                                         {
                                             "apiVersion": "2020-05-01",
                                             "type": "Microsoft.Network/networkSecurityGroups",
-                                            "name": "[concat(parameters('vNet2Name'), '-NSG')]",
+                                            "name": "[variables('vNET2-NSG')]",
                                             "location": "[parameters('location')]"
                                         },
                                         {
@@ -213,7 +217,7 @@
                                             "location": "[parameters('location')]",
                                             "comments": "This is the second vNet",
                                             "dependsOn": [
-                                                "[concat('Microsoft.Network/networkSecurityGroups/', concat(parameters('vNet2Name'), '-NSG'))]"
+                                                "[concat('Microsoft.Network/networkSecurityGroups/', variables('vNET2-NSG'))]"
                                             ],
                                             "properties": {
                                                 "addressSpace": {
@@ -227,7 +231,7 @@
                                                         "properties": {
                                                             "addressPrefix": "[variables('vNet2').subnetPrefix]",
                                                             "networkSecurityGroup": {
-                                                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('vNet2Name'), '-NSG'))]"
+                                                                "id": "[concat(variables('vNET2-NSG-ID'), variables('vNET2-NSG'))]"
                                                             }
                                                         }
                                                     }
