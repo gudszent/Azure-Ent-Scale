@@ -154,7 +154,10 @@
                                                             }
                                                         }
                                                     }
-                                                ]
+                                                ],
+                                                "networkSecurityGroup": {
+                                                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('vNet1Name'), '-NSG'))]"
+                                                }
                                             }
                                         }
                                     ]
@@ -231,7 +234,10 @@
                                                             }
                                                         }
                                                     }
-                                                ]
+                                                ],
+                                                "networkSecurityGroup": {
+                                                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('vNet2Name'), '-NSG'))]"
+                                                }
                                             }
 
 
