@@ -124,10 +124,37 @@
                                     "parameters": {},
                                     "resources": [
                                         {
+                                            "apiVersion": "2020-05-01",
+                                            "type": "Microsoft.Network/networkSecurityGroups",
+                                            "name": "[concat(parameters('vNet1Name'), '-NSG')]",
+                                            "location": "[parameters('location')]",
+                                            "properties": {
+                                                "securityRules": [
+                                                    {
+                                                        "name": "first_rule",
+                                                        "properties": {
+                                                            "description": "This is the first rule",
+                                                            "protocol": "Tcp",
+                                                            "sourcePortRange": "23-45",
+                                                            "destinationPortRange": "46-56",
+                                                            "sourceAddressPrefix": "*",
+                                                            "destinationAddressPrefix": "*",
+                                                            "access": "Allow",
+                                                            "priority": 123,
+                                                            "direction": "Inbound"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
                                             "type": "Microsoft.Network/virtualNetworks",
                                             "apiVersion": "2020-05-01",
                                             "name": "[parameters('vNet1Name')]",
                                             "location": "[parameters('location')]",
+                                            "dependsOn": [
+                                                "[concat(parameters('vNet1Name'), '-NSG')]"
+                                            ],
                                             "comments": "This is the first vNet",
                                             "properties": {
                                                 "addressSpace": {
@@ -139,7 +166,10 @@
                                                     {
                                                         "name": "[variables('vNet1').subnetName]",
                                                         "properties": {
-                                                            "addressPrefix": "[variables('vNet1').subnetPrefix]"
+                                                            "addressPrefix": "[variables('vNet1').subnetPrefix]",
+                                                            "networkSecurityGroup": {
+                                                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('vNet1Name'), '-NSG'))]"
+                                                            }
                                                         }
                                                     }
                                                 ]
@@ -189,11 +219,38 @@
                                     "parameters": {},
                                     "resources": [
                                         {
+                                            "apiVersion": "2020-05-01",
+                                            "type": "Microsoft.Network/networkSecurityGroups",
+                                            "name": "[concat(parameters('vNet2Name'), '-NSG')]",
+                                            "location": "[parameters('location')]",
+                                            "properties": {
+                                                "securityRules": [
+                                                    {
+                                                        "name": "first_rule",
+                                                        "properties": {
+                                                            "description": "This is the first rule",
+                                                            "protocol": "Tcp",
+                                                            "sourcePortRange": "23-45",
+                                                            "destinationPortRange": "46-56",
+                                                            "sourceAddressPrefix": "*",
+                                                            "destinationAddressPrefix": "*",
+                                                            "access": "Allow",
+                                                            "priority": 123,
+                                                            "direction": "Inbound"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
                                             "type": "Microsoft.Network/virtualNetworks",
                                             "apiVersion": "2020-05-01",
                                             "name": "[parameters('vNet2Name')]",
                                             "location": "[parameters('location')]",
                                             "comments": "This is the second vNet",
+                                            "dependsOn": [
+                                                "[concat(parameters('vNet2Name'), '-NSG')]"
+                                            ],
                                             "properties": {
                                                 "addressSpace": {
                                                     "addressPrefixes": [
@@ -204,7 +261,10 @@
                                                     {
                                                         "name": "[variables('vNet2').subnetName]",
                                                         "properties": {
-                                                            "addressPrefix": "[variables('vNet2').subnetPrefix]"
+                                                            "addressPrefix": "[variables('vNet2').subnetPrefix]",
+                                                            "networkSecurityGroup": {
+                                                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('vNet2Name'), '-NSG'))]"
+                                                            }
                                                         }
                                                     }
                                                 ]
