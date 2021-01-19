@@ -130,20 +130,6 @@
                                             "location": "[parameters('location')]",
                                             "properties": {
                                                 "securityRules": [
-                                                    {
-                                                        "name": "first_rule",
-                                                        "properties": {
-                                                            "description": "This is the first rule",
-                                                            "protocol": "Tcp",
-                                                            "sourcePortRange": "23-45",
-                                                            "destinationPortRange": "46-56",
-                                                            "sourceAddressPrefix": "*",
-                                                            "destinationAddressPrefix": "*",
-                                                            "access": "Allow",
-                                                            "priority": 123,
-                                                            "direction": "Inbound"
-                                                        }
-                                                    }
                                                 ]
                                             }
                                         },
@@ -225,20 +211,6 @@
                                             "location": "[parameters('location')]",
                                             "properties": {
                                                 "securityRules": [
-                                                    {
-                                                        "name": "first_rule",
-                                                        "properties": {
-                                                            "description": "This is the first rule",
-                                                            "protocol": "Tcp",
-                                                            "sourcePortRange": "23-45",
-                                                            "destinationPortRange": "46-56",
-                                                            "sourceAddressPrefix": "*",
-                                                            "destinationAddressPrefix": "*",
-                                                            "access": "Allow",
-                                                            "priority": 123,
-                                                            "direction": "Inbound"
-                                                        }
-                                                    }
                                                 ]
                                             }
                                         },
