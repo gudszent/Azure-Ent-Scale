@@ -43,8 +43,7 @@
             "defaultValue": "No"
         },
         "AllowedSize": {
-            "type": "string",
-            "defaultValue": "No"
+            "type": "array"
         }
 
     },
