@@ -183,7 +183,7 @@
             "defaultValue": ""
         },
         "AllowedSize": {
-            "type": "string",
+            "type": "array",
             "defaultValue": ""
 
         },
@@ -446,6 +446,9 @@
                     },
                     "AllowedSize": {
                         "value": "[parameters('AllowedSize')]"
+                    },
+                    "isAllowedSize" : {
+                        "value" : "[parameters('isAllowedSize')]"
                     }
                 }
             }

@@ -34,10 +34,19 @@
             "type": "string",
             "defaultValue": "No"
         },
+        "isAllowedSize": {
+            "type": "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ],
+            "defaultValue": "No"
+        },
         "AllowedSize": {
             "type": "array",
             "defaultValue": "No"
         }
+
     },
     "variables": {
         "scope": "[concat('/providers/Microsoft.Management/managementGroups/', parameters('topLevelManagementGroupPrefix'), '-landingzones')]",
@@ -144,7 +153,7 @@
             }
         },
         {
-            "condition": "[not(empty(parameters('AllowedSize')))]",
+            "condition": "[equals(parameters('isAllowedSize'), 'Yes')]",
             "type": "Microsoft.Authorization/policyAssignments",
             "apiVersion": "2018-05-01",
             "name": "[variables('policyAssignmentNames').AllowedSize]",
@@ -160,6 +169,3 @@
     ],
     "outputs": {}
 }
-
-
-
