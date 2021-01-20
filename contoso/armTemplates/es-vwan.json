@@ -183,7 +183,7 @@
             "defaultValue": ""
         },
         "AllowedSize": {
-            "type": "array",
+            "type": "string",
             "defaultValue": ""
 
         },
@@ -625,3 +625,20 @@
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
