@@ -183,8 +183,7 @@
             "defaultValue": ""
         },
         "AllowedSize": {
-            "type": "string",
-            "defaultValue": ""
+            "type": "array"
 
         },
         "VPNClientPublicAddress": {
