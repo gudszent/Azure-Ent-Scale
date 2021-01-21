@@ -116,6 +116,13 @@
                             }
                         },
                         {
+                            "type": "Microsoft.Network/networkWatchers",
+                            "apiVersion": "2020-05-01",
+                            "name": "[concat(variables('rgNameconnectivity'),'-netwatcher')]",
+                            "location": "[deployment().location]",
+                            "properties": {}
+                        },
+                        {
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "name": "[variables('resourceDeploymentName')]",
@@ -194,6 +201,13 @@
                             "tags": {
                                 "rgName": "[variables('rgNamelandzone')]"
                             }
+                        },
+                        {
+                            "type": "Microsoft.Network/networkWatchers",
+                            "apiVersion": "2020-05-01",
+                            "name": "[concat(variables('rgNamelandzone'),'-netwatcher')]",
+                            "location": "[deployment().location]",
+                            "properties": {}
                         },
                         {
                             "type": "Microsoft.Resources/deployments",
