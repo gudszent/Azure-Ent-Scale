@@ -566,7 +566,6 @@
             "dependsOn": [
                 "[variables('deploymentNames').connectivityDeploymentName]"
             ],
-            "location": "[deployment().location]",
             "properties": {
 
                 "mode": "Incremental",
