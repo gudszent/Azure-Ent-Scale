@@ -116,14 +116,6 @@
                             }
                         },
                         {
-                            "type": "Microsoft.Network/networkWatchers",
-                            "apiVersion": "2020-05-01",
-                            "name": "[concat(variables('rgNameconnectivity'),'-netwatcher')]",
-                            "resourceGroup": "[variables('rgNameconnectivity')]",
-                            "location": "[deployment().location]",
-                            "properties": {}
-                        },
-                        {
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "name": "[variables('resourceDeploymentName')]",
@@ -143,6 +135,13 @@
                                             "type": "Microsoft.Network/networkSecurityGroups",
                                             "name": "[variables('vNET1-NSG')]",
                                             "location": "[parameters('location')]"
+                                        },
+                                        {
+                                            "type": "Microsoft.Network/networkWatchers",
+                                            "apiVersion": "2020-05-01",
+                                            "name": "[concat(variables('rgNameconnectivity'),'-netwatcher')]",
+                                            "location": "[deployment().location]",
+                                            "properties": {}
                                         },
                                         {
                                             "type": "Microsoft.Network/virtualNetworks",
@@ -204,14 +203,6 @@
                             }
                         },
                         {
-                            "type": "Microsoft.Network/networkWatchers",
-                            "apiVersion": "2020-05-01",
-                            "name": "[concat(variables('rgNamelandzone'),'-netwatcher')]",
-                            "location": "[deployment().location]",
-                            "resourceGroup": "[variables('rgNamelandzone')]",
-                            "properties": {}
-                        },
-                        {
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "name": "[variables('resourceDeploymentName')]",
@@ -231,6 +222,13 @@
                                             "type": "Microsoft.Network/networkSecurityGroups",
                                             "name": "[variables('vNET2-NSG')]",
                                             "location": "[parameters('location')]"
+                                        },
+                                        {
+                                            "type": "Microsoft.Network/networkWatchers",
+                                            "apiVersion": "2020-05-01",
+                                            "name": "[concat(variables('rgNamelandzone'),'-netwatcher')]",
+                                            "location": "[deployment().location]",
+                                            "properties": {}
                                         },
                                         {
                                             "type": "Microsoft.Network/virtualNetworks",
