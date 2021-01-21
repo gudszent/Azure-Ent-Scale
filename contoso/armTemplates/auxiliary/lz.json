@@ -101,7 +101,7 @@
         {
             "condition": "[equals(parameters('enableVmBackup'), 'Yes')]",
             "type": "Microsoft.Authorization/roleAssignments",
-            "apiVersion": "2019-04-01-preview",
+            "apiVersion": "2020-04-01-preview",
             "name": "[variables('roleAssignmentNames').deployVmBackup]",
             "dependsOn": [
                 "[variables('policyAssignmentNames').deployVmBackup]"
