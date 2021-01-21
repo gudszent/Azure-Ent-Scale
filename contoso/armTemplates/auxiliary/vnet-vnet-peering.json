@@ -119,6 +119,7 @@
                             "type": "Microsoft.Network/networkWatchers",
                             "apiVersion": "2020-05-01",
                             "name": "[concat(variables('rgNameconnectivity'),'-netwatcher')]",
+                            "resourceGroup": "[variables('rgNameconnectivity')]",
                             "location": "[deployment().location]",
                             "properties": {}
                         },
@@ -207,6 +208,7 @@
                             "apiVersion": "2020-05-01",
                             "name": "[concat(variables('rgNamelandzone'),'-netwatcher')]",
                             "location": "[deployment().location]",
+                            "resourceGroup": "[variables('rgNamelandzone')]",
                             "properties": {}
                         },
                         {
