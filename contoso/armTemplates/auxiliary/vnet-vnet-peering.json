@@ -138,13 +138,6 @@
                                             "properties": {}
                                         },
                                         {
-                                            "type": "Microsoft.Network/networkWatchers",
-                                            "apiVersion": "2020-05-01",
-                                            "name": "[concat(variables('rgNameconnectivity'),'-netwatcher')]",
-                                            "location": "[parameters('location')]",
-                                            "properties": {}
-                                        },
-                                        {
                                             "type": "Microsoft.Network/virtualNetworks",
                                             "apiVersion": "2020-05-01",
                                             "name": "[parameters('vNet1Name')]",
@@ -224,13 +217,6 @@
                                             "name": "[variables('vNET2-NSG')]",
                                             "location": "[parameters('location')]",
                                             "properties" : {}
-                                        },
-                                        {
-                                            "type": "Microsoft.Network/networkWatchers",
-                                            "apiVersion": "2020-05-01",
-                                            "name": "[concat(variables('rgNamelandzone'),'-netwatcher')]",
-                                            "location": "[parameters('location')]",
-                                            "properties": {}
                                         },
                                         {
                                             "type": "Microsoft.Network/virtualNetworks",
