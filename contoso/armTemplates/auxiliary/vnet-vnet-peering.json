@@ -111,9 +111,9 @@
                             "name": "[variables('rgNameconnectivity')]",
                             "location": "[deployment().location]",
                             "properties": {
-                                "tags": {
-                                    "rgName": "[variables('rgNamelandzone')]"
-                                }
+                            },
+                            "tags": {
+                                "rgName": "[variables('rgNamelandzone')]"
                             }
                         },
                         {
@@ -192,9 +192,9 @@
                             "name": "[variables('rgNamelandzone')]",
                             "location": "[deployment().location]",
                             "properties": {
-                                "tags": {
-                                    "rgName": "[variables('rgNamelandzone')]"
-                                }
+                            },
+                            "tags": {
+                                "rgName": "[variables('rgNamelandzone')]"
                             }
                         },
                         {
