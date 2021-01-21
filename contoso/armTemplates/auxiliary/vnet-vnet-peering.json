@@ -46,7 +46,7 @@
         },
         "esAddressSubnet1": {
             "type": "string",
-            "defaultValue":"10.100.0.0/24" ,
+            "defaultValue": "10.100.0.0/24",
             "metadata": {
                 "description": ""
             }
@@ -110,7 +110,11 @@
                             "apiVersion": "2019-10-01",
                             "name": "[variables('rgNameconnectivity')]",
                             "location": "[deployment().location]",
-                            "properties": {}
+                            "properties": {
+                                "tags": {
+                                    "rgName": "[variables('rgNamelandzone')]"
+                                }
+                            }
                         },
                         {
                             "type": "Microsoft.Resources/deployments",
@@ -187,7 +191,11 @@
                             "apiVersion": "2019-10-01",
                             "name": "[variables('rgNamelandzone')]",
                             "location": "[deployment().location]",
-                            "properties": {}
+                            "properties": {
+                                "tags": {
+                                    "rgName": "[variables('rgNamelandzone')]"
+                                }
+                            }
                         },
                         {
                             "type": "Microsoft.Resources/deployments",
