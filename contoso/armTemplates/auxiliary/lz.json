@@ -45,6 +45,14 @@
         "AllowedSize": {
             "type": "array",
             "defaultValue": []
+        },
+        "enableTaglz": {
+            "type": "string",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ],
+            "defaultValue": "No"
         }
 
     },
@@ -55,14 +63,16 @@
             "denySubnetWithoutNsg": "[concat('/providers/Microsoft.Management/managementGroups/', parameters('topLevelManagementGroupPrefix'), '/providers/Microsoft.Authorization/policyDefinitions/Deny-Subnet-Without-Nsg')]",
             "denyIpForwarding": "/providers/Microsoft.Authorization/policyDefinitions/88c0b9da-ce96-4b03-9635-f29a937e2900",
             "GDPRAllowedEurope": "/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c",
-            "AllowedSize": "/providers/Microsoft.Authorization/policyDefinitions/cccc23c7-8427-4f53-ad12-b6a63eb452b3"
+            "AllowedSize": "/providers/Microsoft.Authorization/policyDefinitions/cccc23c7-8427-4f53-ad12-b6a63eb452b3",
+            "tagfromsubscription": "/providers/Microsoft.Authorization/policyDefinitions/b27a0cbd-a167-4dfa-ae64-4337be671140"
         },
         "policyAssignmentNames": {
             "deployVmBackup": "Deploy-VM-Backup",
             "denySubnetWithoutNsg": "Deny-Subnet-Without-Nsg",
             "denyIpForwarding": "Deny-IP-forwarding",
             "GDPRAllowedEurope": "Eu-location-allowed",
-            "AllowedSize": "Allowed-VM-Size"
+            "AllowedSize": "Allowed-VM-Size",
+            "tagfromsubscription": "Tag-From-subscription"
         },
         "rbacOwner": "8e3af657-a8ff-443c-a75c-2fe8c4bcb635",
         "roleAssignmentNames": {
@@ -94,6 +104,23 @@
                 "description": "Deploy-VM-Backup",
                 "displayName": "Deploy-VM-Backup",
                 "policyDefinitionId": "[variables('policyDefinitions').deployVmBackup]",
+                "scope": "[variables('scope')]",
+                "parameters": {}
+            }
+        },
+                {
+            "condition": "[equals(parameters('enableTaglz'), 'Yes')]",
+            "type": "Microsoft.Authorization/policyAssignments",
+            "apiVersion": "2018-05-01",
+            "name": "[variables('policyAssignmentNames').tagfromsubscription]",
+            "location": "[deployment().location]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "description": "[variables('policyAssignmentNames').tagfromsubscription]",
+                "displayName": "[variables('policyAssignmentNames').tagfromsubscription]",
+                "policyDefinitionId": "[variables('policyDefinitions').tagfromsubscription]",
                 "scope": "[variables('scope')]",
                 "parameters": {}
             }

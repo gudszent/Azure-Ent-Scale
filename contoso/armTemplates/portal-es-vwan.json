@@ -510,26 +510,6 @@
                         "visible": true
                     },
                     {
-                        "name": "esCustomTag",
-                        "type": "Microsoft.Common.OptionsGroup",
-                        "label": "Ensure resources have custom tag",
-                        "defaultValue": "Yes (recommended)",
-                        "toolTip": "If 'Yes' is selected, Azure Policy will be assigned to ensure tag must be create",
-                        "constraints": {
-                            "allowedValues": [
-                                {
-                                    "label": "Yes (recommended)",
-                                    "value": "Yes"
-                                },
-                                {
-                                    "label": "No",
-                                    "value": "No"
-                                }
-                            ]
-                        },
-                        "visible": true
-                    },
-                    {
                         "name": "esVmMonitoring",
                         "type": "Microsoft.Common.OptionsGroup",
                         "label": "Ensure Azure VMs (Windows & Linux) are being monitored",
@@ -715,7 +695,6 @@
             "enableVpnGw": "[steps('esConnectivityGoalState').esVpnGw]",
             "connectivitySubscriptionId": "[if(not(equals(steps('esConnectivityGoalState').esConnectivitySub, steps('esGoalState').esMgmtSub)), steps('esConnectivityGoalState').esConnectivitySub, '')]",
             "enableTaglz": "[steps('lzGoalState').esTaglz]",
-            "enableCustomTag": "[steps('lzGoalState').esCustomTag]",
             "enableVmssMonitoring": "[steps('lzGoalState').esVmssMonitoring]",
             "enableVmMonitoring": "[steps('lzGoalState').esVmMonitoring]",
             "enableVmBackup": "[steps('lzGoalState').esAzBackup]",

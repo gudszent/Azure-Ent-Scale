@@ -174,10 +174,6 @@
                 "No"
             ]
         },
-        "enableCustomTag": {
-            "type": "string",
-            "defaultValue": ""
-        },
         "isAllowedSize": {
             "type": "string",
             "defaultValue": ""
@@ -411,8 +407,8 @@
                 }
             }
         },
-        {
-            "condition": "[equals(parameters('enableVmBackup'), 'Yes')]",
+        {              
+            "condition":  "[and(not(empty(parameters('enterpriseScaleCompanyPrefix'))), or(or(equals(parameters('denyIpForwarding'), 'Yes'), equals(parameters('enableVmBackup'), 'Yes'),equals(parameters('denySubnetWithoutNsg'), 'Yes'), equals(parameters('GDPRAllowedEurope'), 'Yes'), equals(parameters('isAllowedSize'), 'Yes')), equals(parameters('enableTaglz'), 'Yes')))]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-05-01",
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'), '-landingzones')]",
@@ -449,6 +445,9 @@
                     },
                     "isAllowedSize" : {
                         "value" : "[parameters('isAllowedSize')]"
+                    },
+                    "enableTaglz" : {
+                        "value" : "[parameters('enableTaglz')]"
                     }
                 }
             }
