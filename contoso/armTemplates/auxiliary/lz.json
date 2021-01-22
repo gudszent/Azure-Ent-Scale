@@ -87,6 +87,11 @@
             "listOfAllowedSKUs": {
                 "value": "[parameters('AllowedSize')]"
             }
+        },
+        "tagname_array": {
+            "tagName": {
+                "value": "Subscription"
+            }
         }
     },
 
@@ -114,15 +119,12 @@
             "apiVersion": "2018-05-01",
             "name": "[variables('policyAssignmentNames').tagfromsubscription]",
             "location": "[deployment().location]",
-            "identity": {
-                "type": "SystemAssigned"
-            },
             "properties": {
                 "description": "[variables('policyAssignmentNames').tagfromsubscription]",
                 "displayName": "[variables('policyAssignmentNames').tagfromsubscription]",
                 "policyDefinitionId": "[variables('policyDefinitions').tagfromsubscription]",
                 "scope": "[variables('scope')]",
-                "parameters": {}
+                "parameters": "[variables('tagname_array')]"
             }
         },
         {

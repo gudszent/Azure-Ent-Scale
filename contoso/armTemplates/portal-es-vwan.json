@@ -494,7 +494,7 @@
                         "type": "Microsoft.Common.OptionsGroup",
                         "label": "Ensure resources are will be tagged with subscription name",
                         "defaultValue": "Yes (recommended)",
-                        "toolTip": "If 'Yes' is selected, Azure Policy will be assigned to ensure the resources will be tagged with subscription name",
+                        "toolTip": "If 'Yes' is selected, Azure Policy will be assigned to ensure the resources inherit a tag 'Subscription' from the subscription",
                         "constraints": {
                             "allowedValues": [
                                 {
