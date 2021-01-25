@@ -270,7 +270,7 @@
                 }
             }
         },
-        {
+   /*     {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "[variables('deploymentNames').policyDeploymentName]",
@@ -291,7 +291,7 @@
                     }
                 }
             }
-        },
+        },*/
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
