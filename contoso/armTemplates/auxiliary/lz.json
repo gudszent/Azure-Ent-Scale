@@ -119,6 +119,9 @@
             "apiVersion": "2018-05-01",
             "name": "[variables('policyAssignmentNames').tagfromsubscription]",
             "location": "[deployment().location]",
+                        "identity": {
+                "type": "SystemAssigned"
+            },
             "properties": {
                 "description": "[variables('policyAssignmentNames').tagfromsubscription]",
                 "displayName": "[variables('policyAssignmentNames').tagfromsubscription]",
