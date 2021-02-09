@@ -116,6 +116,20 @@
                 "mode": "incremental",
                 "template": "[uri(deployment().properties.templateLink.uri, 'auxiliary/lockrggroup.json')]"                
             }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "[concat(variables('resourceDeploymentName'),'-RGLock')]",
+            "location": "[deployment().location]",
+            "dependsOn": [
+                "[variables('policyAssignmentNames').loganalytics]"
+            ],
+            "subscriptionId": "[parameters('managementSubscriptionId')]",
+            "properties": {
+                "mode": "incremental",
+                "template": "[uri(deployment().properties.templateLink.uri, 'auxiliary/lockrggroup.json')]"                
+            }
         }
     ],
     "outputs": {}
