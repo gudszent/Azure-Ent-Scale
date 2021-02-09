@@ -119,7 +119,7 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "contentVersion": "1.0.0.0",
-                    "uri": "[uri(deployment().properties.templateLink.uri, 'auxiliary/lockrggroup.json')]"
+                    "uri": "[uri(deployment().properties.templateLink.uri, 'lockrggroup.json')]"
 
                 },
                 "parameters": {
