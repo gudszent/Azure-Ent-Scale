@@ -106,11 +106,15 @@
             }
         },
         {
+            "condition": "[and(not(empty(parameters('managementSubscriptionId'))),equals(parameters('enableLogAnalytics'), 'Yes'))]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "[concat(variables('resourceDeploymentName'),'-RGLock')]",
             "location": "[deployment().location]",
             "subscriptionId": "[parameters('managementSubscriptionId')]",
+            "dependsOn": [
+                "[variables('policyAssignmentNames').loganalytics]"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
