@@ -125,6 +125,7 @@
             "dependsOn": [
                 "[variables('policyAssignmentNames').loganalytics]"
             ],
+            "resourceGroup": "[concat(parameters('topLevelManagementGroupPrefix'), '-mgmt')]",
             "subscriptionId": "[parameters('managementSubscriptionId')]",
             "properties": {
                 "mode": "incremental",
