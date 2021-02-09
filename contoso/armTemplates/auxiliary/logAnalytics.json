@@ -113,7 +113,8 @@
             "location": "[deployment().location]",
             "subscriptionId": "[parameters('managementSubscriptionId')]",
             "dependsOn": [
-                "[variables('policyAssignmentNames').loganalytics]"
+                "[variables('policyAssignmentNames').loganalytics]",
+                "[resourceId('Microsoft.Authorization/roleAssignments/', variables('roleAssignmentNames').deployLogAnalytics)]"
             ],
             "properties": {
                 "mode": "Incremental",
