@@ -109,7 +109,7 @@
             "condition": "[and(not(empty(parameters('managementSubscriptionId'))),equals(parameters('enableLogAnalytics'), 'Yes'))]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
-            "name": "[concat(variables('resourceDeploymentName'),'-RGLock')]",
+            "name": "[take(concat(variables('resourceDeploymentName'),'-RGLock'), 63)]",
             "location": "[deployment().location]",
             "subscriptionId": "[parameters('managementSubscriptionId')]",
             "dependsOn": [
