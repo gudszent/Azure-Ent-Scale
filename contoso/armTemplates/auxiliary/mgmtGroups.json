@@ -39,12 +39,29 @@
         }
     },
     "resources": [
+                {
+            // Create top level management group under tenant root
+            "type": "Microsoft.Management/managementGroups",
+            "apiVersion": "2020-05-01",
+            "name": "[concat(parameters('topLevelManagementGroupPrefix'),'-Group')]",
+            "properties": {}
+        },
         {
             // Create top level management group under tenant root
             "type": "Microsoft.Management/managementGroups",
             "apiVersion": "2020-05-01",
             "name": "[parameters('topLevelManagementGroupPrefix')]",
-            "properties": {}
+            "dependsOn": [
+                "[tenantResourceId('Microsoft.Management/managementGroups/', concat(parameters('topLevelManagementGroupPrefix'),'-Group'))]"
+            ],
+            "properties": {
+                "displayName": "[parameters('topLevelManagementGroupPrefix')]",
+                "details": {
+                    "parent": {
+                        "id": "[tenantResourceId('Microsoft.Management/managementGroups/', concat(parameters('topLevelManagementGroupPrefix'),'-Group'))]"
+                    }
+                }
+            }
         },
         {
             // Create management group for platform management groups
